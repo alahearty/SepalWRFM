@@ -1,0 +1,337 @@
+<UserControl x:Class="SepalWRFM.Modules.ModuleName.Views.SepalAppView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Resources>
+        <Style x:Key="TemplateCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#EDEBE9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="280"/>
+            <Setter Property="Margin" Value="0,0,16,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#0078D4"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RecentDocumentRowStyle" TargetType="Border">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F3F2F1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SidebarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#323130"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F3F2F1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SelectedSidebarButtonStyle" TargetType="Button" BasedOn="{StaticResource SidebarButtonStyle}">
+            <Setter Property="Background" Value="#EDEBE9"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#605E5C"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#323130"/>
+                    <Setter Property="Background" Value="#F3F2F1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SelectedTabButtonStyle" TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+            <Setter Property="Foreground" Value="#0078D4"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            <Setter Property="BorderBrush" Value="#0078D4"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#FAF9F8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Sidebar -->
+        <Border Grid.Column="0" Background="White" BorderBrush="#E1DFDD" BorderThickness="0,0,1,0">
+            <StackPanel>
+                <Button Style="{StaticResource SelectedSidebarButtonStyle}" Margin="8,16,8,4">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Home" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <TextBlock Text="Home" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileDocumentPlus" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <TextBlock Text="New" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FolderOpen" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <TextBlock Text="Open" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Separator Margin="8,16"/>
+                <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Account" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <TextBlock Text="Account" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Cog" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <TextBlock Text="Options" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content Area -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Background="#FAF9F8">
+            <StackPanel Margin="32,32">
+                <!-- Greeting -->
+                <TextBlock Text="{Binding Greeting}" FontSize="28" FontWeight="SemiBold" Foreground="#323130" Margin="0,0,0,24"/>
+
+                <!-- New Section -->
+                <TextBlock Text="New" FontSize="18" FontWeight="SemiBold" Foreground="#323130" Margin="0,0,0,16"/>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,32">
+                    <ItemsControl ItemsSource="{Binding Templates}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource TemplateCardStyle}">
+                                    <Button Command="{Binding CreateCommand}" CommandParameter="{Binding}" 
+                                            Background="Transparent" BorderThickness="0" Padding="0">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="180"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Row="0" Background="{Binding BackgroundColor}" 
+                                                    CornerRadius="4,4,0,0" Margin="0,0,0,12"/>
+                                            <StackPanel Grid.Row="1" Margin="12,0">
+                                                <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" 
+                                                           Foreground="#323130" TextWrapping="Wrap" Margin="0,0,0,4"/>
+                                                <TextBlock Text="{Binding Description}" FontSize="11" 
+                                                           Foreground="#605E5C" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Button>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- More templates link -->
+                <TextBlock Text="More templates →" FontSize="14" FontWeight="SemiBold" 
+                           Foreground="#0078D4" Margin="0,0,0,32" Cursor="Hand">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="TextDecorations" Value="Underline"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <!-- Recent Section -->
+                <StackPanel>
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- Tabs -->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <Button Content="Recent" 
+                                    Command="{Binding NavigateTabCommand}" CommandParameter="Recent">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedTab}" Value="Recent">
+                                                <Setter Property="Foreground" Value="#0078D4"/>
+                                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                                                <Setter Property="BorderBrush" Value="#0078D4"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button Content="Favorites" 
+                                    Command="{Binding NavigateTabCommand}" CommandParameter="Favorites">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedTab}" Value="Favorites">
+                                                <Setter Property="Foreground" Value="#0078D4"/>
+                                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                                                <Setter Property="BorderBrush" Value="#0078D4"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button Content="Shared with Me" 
+                                    Command="{Binding NavigateTabCommand}" CommandParameter="Shared">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedTab}" Value="Shared">
+                                                <Setter Property="Foreground" Value="#0078D4"/>
+                                                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                                                <Setter Property="BorderBrush" Value="#0078D4"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1" Text="More documents →" FontSize="14" 
+                                   Foreground="#0078D4" VerticalAlignment="Center" Cursor="Hand">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="TextDecorations" Value="Underline"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                    <!-- Recent Documents Table -->
+                    <Border Background="White" BorderBrush="#E1DFDD" BorderThickness="1" CornerRadius="4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Table Header -->
+                            <Border Grid.Row="0" Background="#FAF9F8" BorderBrush="#E1DFDD" BorderThickness="0,0,0,1" Padding="12,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="200"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Name" FontSize="12" FontWeight="SemiBold" Foreground="#605E5C"/>
+                                    <TextBlock Grid.Column="1" Text="Date modified" FontSize="12" FontWeight="SemiBold" Foreground="#605E5C"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Table Rows -->
+                            <ItemsControl Grid.Row="1" ItemsSource="{Binding RecentDocuments}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Border Style="{StaticResource RecentDocumentRowStyle}">
+                                                <Button Command="{Binding OpenCommand}" CommandParameter="{Binding}"
+                                                        Background="Transparent" BorderThickness="0" Padding="0"
+                                                        HorizontalContentAlignment="Stretch">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="200"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        
+                                                        <Grid Grid.Column="0" Width="32" Height="32" Margin="0,0,12,0" VerticalAlignment="Center">
+                                                            <Ellipse Fill="{Binding IconColor}">
+                                                                <Ellipse.Style>
+                                                                    <Style TargetType="Ellipse">
+                                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                    </Style>
+                                                                </Ellipse.Style>
+                                                            </Ellipse>
+                                                            <materialDesign:PackIcon Kind="FileDocument" 
+                                                                                     Width="16" Height="16"
+                                                                                     Foreground="White"
+                                                                                     HorizontalAlignment="Center"
+                                                                                     VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                        
+                                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Name}" FontSize="14" 
+                                                                       Foreground="#323130" 
+                                                                       TextTrimming="CharacterEllipsis"/>
+                                                            <TextBlock Text="{Binding Location}" FontSize="12" 
+                                                                       Foreground="#605E5C" 
+                                                                       Margin="0,2,0,0"/>
+                                                        </StackPanel>
+                                                        
+                                                        <TextBlock Grid.Column="2" Text="{Binding DateModifiedText}" 
+                                                                   FontSize="12" Foreground="#605E5C" 
+                                                                   VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </Button>
+                                            </Border>
+                                            <Separator Background="#E1DFDD" Margin="44,0,0,0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </Border>
+
+                    <!-- Recover unsaved documents link -->
+                    <TextBlock Text="Recover unsaved documents" FontSize="12" 
+                               Foreground="#0078D4" Margin="12,8,0,0" Cursor="Hand">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="TextDecorations" Value="Underline"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
