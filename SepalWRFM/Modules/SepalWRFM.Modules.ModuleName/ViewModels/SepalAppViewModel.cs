@@ -211,16 +211,8 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 new RecentDocument
                 {
                     Name = "Digital and Innovation Services with Renaissance Ideation Document",
-                    Location = "OneDrive",
+                    Location = "Testing",
                     DateModified = new DateTime(2025, 12, 15),
-                    IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
-                    OpenCommand = OpenDocumentCommand
-                }
-                new RecentDocument
-                {
-                    Name = "WORIAYIBAPRI HEARTY ALAPHER",
-                    Location = "OneDrive",
-                    DateModified = new DateTime(2025, 12, 11),
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     OpenCommand = OpenDocumentCommand
                 }
