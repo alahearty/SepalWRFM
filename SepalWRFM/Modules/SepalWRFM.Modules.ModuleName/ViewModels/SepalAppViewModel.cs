@@ -10,13 +10,17 @@ using System.Windows.Media;
 
 namespace SepalWRFM.Modules.ModuleName.ViewModels
 {
-    public class DocumentTemplate
+    public class WRFMModule
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Thumbnail { get; set; }
-        public Brush BackgroundColor { get; set; }
-        public ICommand CreateCommand { get; set; }
+        public string IconPath { get; set; }
+        public string IconKind { get; set; }
+        public Brush GradientStartColor { get; set; }
+        public Brush GradientEndColor { get; set; }
+        public Brush IconBackgroundColor { get; set; }
+        public string Category { get; set; }
+        public ICommand OpenCommand { get; set; }
     }
 
     public class RecentDocument
@@ -59,22 +63,22 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
     public class SepalAppViewModel : RegionViewModelBase
     {
-        private ObservableCollection<DocumentTemplate> _templates;
+        private ObservableCollection<WRFMModule> _wrfmModules;
         private ObservableCollection<RecentDocument> _recentDocuments;
         private string _selectedTab = "Recent";
         private string _greeting;
 
         public SepalAppViewModel(IRegionManager regionManager) : base(regionManager)
         {
-            InitializeTemplates();
+            InitializeWRFMModules();
             InitializeRecentDocuments();
             UpdateGreeting();
         }
 
-        public ObservableCollection<DocumentTemplate> Templates
+        public ObservableCollection<WRFMModule> WRFMModules
         {
-            get { return _templates; }
-            set { SetProperty(ref _templates, value); }
+            get { return _wrfmModules; }
+            set { SetProperty(ref _wrfmModules, value); }
         }
 
         public ObservableCollection<RecentDocument> RecentDocuments
@@ -95,7 +99,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
             set { SetProperty(ref _greeting, value); }
         }
 
-        public ICommand CreateDocumentCommand => new DelegateCommand<DocumentTemplate>(CreateDocument);
+        public ICommand OpenModuleCommand => new DelegateCommand<WRFMModule>(OpenModule);
         public ICommand OpenDocumentCommand => new DelegateCommand<RecentDocument>(OpenDocument);
         public ICommand NavigateTabCommand => new DelegateCommand<string>(NavigateTab);
 
@@ -110,9 +114,10 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 Greeting = "Good evening";
         }
 
-        private void CreateDocument(DocumentTemplate template)
+        private void OpenModule(WRFMModule module)
         {
-            System.Diagnostics.Debug.WriteLine($"Creating document from template: {template.Name}");
+            System.Diagnostics.Debug.WriteLine($"Opening WRFM module: {module.Name}");
+            // Navigate to the specific module
         }
 
         private void OpenDocument(RecentDocument document)
@@ -125,65 +130,119 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
             SelectedTab = tab;
         }
 
-        private void InitializeTemplates()
+        private void InitializeWRFMModules()
         {
-            Templates = new ObservableCollection<DocumentTemplate>
+            WRFMModules = new ObservableCollection<WRFMModule>
             {
-                new DocumentTemplate
+                new WRFMModule
                 {
-                    Name = "Blank document",
-                    Description = "Start with a blank page",
-                    BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
-                    CreateCommand = CreateDocumentCommand
+                    Name = "Production Analysis",
+                    Description = "Analyze production trends, decline curves, and performance metrics",
+                    Category = "Production",
+                    IconKind = "ChartLine",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E3C72")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2A5298")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E3C72")),
+                    OpenCommand = OpenModuleCommand
                 },
-                new DocumentTemplate
+                new WRFMModule
                 {
-                    Name = "Welcome to Word",
-                    Description = "Take a tour",
-                    BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E8F4F8")),
-                    CreateCommand = CreateDocumentCommand
+                    Name = "Production Geology",
+                    Description = "Geological mapping, reservoir characterization, and stratigraphy",
+                    Category = "Geology",
+                    IconKind = "Map",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8B4513")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CD853F")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8B4513")),
+                    OpenCommand = OpenModuleCommand
                 },
-                new DocumentTemplate
+                new WRFMModule
                 {
-                    Name = "Insert your first table of cont...",
-                    Description = "Template",
-                    BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F8F8F8")),
-                    CreateCommand = CreateDocumentCommand
+                    Name = "Petrophysics",
+                    Description = "Rock properties, log analysis, and reservoir evaluation",
+                    Category = "Analysis",
+                    IconKind = "ChartBar",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D32F2F")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F44336")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D32F2F")),
+                    OpenCommand = OpenModuleCommand
                 },
-                new DocumentTemplate
+                new WRFMModule
                 {
-                    Name = "Banner calendar",
-                    Description = "January",
-                    BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF4E6")),
-                    CreateCommand = CreateDocumentCommand
+                    Name = "Schematic",
+                    Description = "Well schematics, facility diagrams, and network visualization",
+                    Category = "Visualization",
+                    IconKind = "Network",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00796B")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#009688")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00796B")),
+                    OpenCommand = OpenModuleCommand
                 },
-                new DocumentTemplate
+                new WRFMModule
                 {
-                    Name = "Horizontal calendar (Sunday...",
-                    Description = "Template",
-                    BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F0F0F0")),
-                    CreateCommand = CreateDocumentCommand
+                    Name = "Well Integrity",
+                    Description = "Monitor well integrity, casing condition, and safety compliance",
+                    Category = "Safety",
+                    IconKind = "ShieldCheck",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F57C00")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF9800")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F57C00")),
+                    OpenCommand = OpenModuleCommand
                 },
-                new DocumentTemplate
+                new WRFMModule
                 {
-                    Name = "Vivid shapes event brochure",
-                    Description = "Template",
-                    BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E6F3FF")),
-                    CreateCommand = CreateDocumentCommand
+                    Name = "Reservoir Management",
+                    Description = "Reservoir modeling, simulation, and optimization strategies",
+                    Category = "Reservoir",
+                    IconKind = "Database",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#512DA8")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#673AB7")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#512DA8")),
+                    OpenCommand = OpenModuleCommand
                 },
-                new DocumentTemplate
+                new WRFMModule
                 {
-                    Name = "Service invoice (simple lines...",
-                    Description = "Template",
-                    BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF")),
-                    CreateCommand = CreateDocumentCommand
+                    Name = "Well Testing",
+                    Description = "Pressure transient analysis, flow testing, and diagnostics",
+                    Category = "Testing",
+                    IconKind = "Speedometer",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0288D1")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#03A9F4")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0288D1")),
+                    OpenCommand = OpenModuleCommand
                 },
-                new DocumentTemplate
+                new WRFMModule
                 {
-                    Name = "Invoice (document)",
-                    Description = "Template",
-                    BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F5F5F5")),
-                    CreateCommand = CreateDocumentCommand
+                    Name = "Facility Management",
+                    Description = "Surface facility operations, equipment tracking, and maintenance",
+                    Category = "Facilities",
+                    IconKind = "Factory",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#388E3C")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4CAF50")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#388E3C")),
+                    OpenCommand = OpenModuleCommand
+                },
+                new WRFMModule
+                {
+                    Name = "Economic Analysis",
+                    Description = "Production economics, forecasting, and financial planning",
+                    Category = "Economics",
+                    IconKind = "CurrencyUsd",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C2185B")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E91E63")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C2185B")),
+                    OpenCommand = OpenModuleCommand
+                },
+                new WRFMModule
+                {
+                    Name = "Data Analytics",
+                    Description = "Advanced analytics, machine learning, and predictive modeling",
+                    Category = "Analytics",
+                    IconKind = "Brain",
+                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5D4037")),
+                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#795548")),
+                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5D4037")),
+                    OpenCommand = OpenModuleCommand
                 }
             };
         }

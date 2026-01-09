@@ -158,7 +158,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                       <TextBlock Text="Enterprise Suite" Foreground="{DynamicResource TextPrimary}" FontSize="18" FontWeight="SemiBold" 
+                       <TextBlock Text="Sepal Suite" Foreground="{DynamicResource TextPrimary}" FontSize="18" FontWeight="SemiBold" 
                                    Margin="8,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button Grid.Column="2" 

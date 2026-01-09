@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:converters="clr-namespace:SepalWRFM.Modules.ModuleName.Converters"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
+        <converters:IconKindConverter x:Key="IconKindConverter"/>
+        
         <SolidColorBrush x:Key="SidebarBackground" Color="#FAF9F8"/>
         <SolidColorBrush x:Key="MainBackground" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="TextPrimary" Color="#323130"/>
@@ -96,39 +100,52 @@
 
         <!-- Left Sidebar -->
         <Border Grid.Column="0" Background="{DynamicResource AppCardBackground}" BorderBrush="{DynamicResource SidebarBorder}" BorderThickness="0,0,1,0">
-            <StackPanel>
-                <Button Style="{StaticResource SelectedSidebarButtonStyle}" Margin="8,16,8,4">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Home" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                        <TextBlock Text="Home" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FileDocumentPlus" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                        <TextBlock Text="New" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FolderOpen" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                        <TextBlock Text="Open" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Separator Margin="8,16"/>
-                <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Account" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                        <TextBlock Text="Account" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Cog" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                        <TextBlock Text="Options" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Top Navigation Items -->
+                <StackPanel Grid.Row="0">
+                    <Button Style="{StaticResource SelectedSidebarButtonStyle}" Margin="8,16,8,4">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Home" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                            <TextBlock Text="Home" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileDocumentPlus" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                            <TextBlock Text="New" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FolderOpen" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                            <TextBlock Text="Open" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                
+                <!-- Bottom Navigation Items (Account and Options) -->
+                <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
+                    <Separator Margin="8,16,8,8"/>
+                    <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Account" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                            <TextBlock Text="Account" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SidebarButtonStyle}" Margin="8,4,8,16">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Cog" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                            <TextBlock Text="Options" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Border>
 
         <!-- Main Content Area -->
@@ -137,34 +154,136 @@
                 <!-- Greeting -->
                 <TextBlock Text="{Binding Greeting}" FontSize="28" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,24"/>
 
-                <!-- New Section -->
-                <TextBlock Text="New" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,16"/>
+                <!-- WRFM Modules Section -->
+                <TextBlock Text="WRFM Modules" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,16"/>
+                <TextBlock Text="Explore our comprehensive suite of Well &amp; Reservoir Field Management modules" 
+                           FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,16"/>
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,32">
-                    <ItemsControl ItemsSource="{Binding Templates}">
+                    <ItemsControl ItemsSource="{Binding WRFMModules}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
+                                <WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource TemplateCardStyle}">
-                                    <Button Command="{Binding CreateCommand}" CommandParameter="{Binding}" 
-                                            Background="Transparent" BorderThickness="0" Padding="0">
+                                <Border Margin="0,0,12,12" Width="200" Height="240" 
+                                        CornerRadius="6" 
+                                        BorderThickness="1"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        Background="White">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.08" Color="Black"/>
+                                    </Border.Effect>
+                                    <Button Command="{Binding OpenCommand}" CommandParameter="{Binding}" 
+                                            Background="Transparent" BorderThickness="0" Padding="0"
+                                            HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="180"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <Border Grid.Row="0" Background="{Binding BackgroundColor}" 
-                                                    CornerRadius="4,4,0,0" Margin="0,0,0,12"/>
-                                            <StackPanel Grid.Row="1" Margin="12,0">
-                                                <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" 
-                                                           Foreground="{DynamicResource TextPrimary}" TextWrapping="Wrap" Margin="0,0,0,4"/>
-                                                <TextBlock Text="{Binding Description}" FontSize="11" 
-                                                           Foreground="{DynamicResource TextSecondary}" TextWrapping="Wrap"/>
+                                            
+                                            <!-- Gradient Background with Icon -->
+                                            <Border Grid.Row="0" CornerRadius="6,6,0,0" Height="130">
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                        <GradientStop Color="{Binding GradientStartColor.Color}" Offset="0"/>
+                                                        <GradientStop Color="{Binding GradientEndColor.Color}" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <Grid>
+                                                    <!-- Decorative Circles Pattern -->
+                                                    <Canvas>
+                                                        <Ellipse Canvas.Left="100" Canvas.Top="12" Width="40" Height="40" 
+                                                                 Fill="White" Opacity="0.1"/>
+                                                        <Ellipse Canvas.Left="120" Canvas.Top="50" Width="28" Height="28" 
+                                                                 Fill="White" Opacity="0.15"/>
+                                                        <Ellipse Canvas.Left="35" Canvas.Top="65" Width="55" Height="55" 
+                                                                 Fill="White" Opacity="0.08"/>
+                                                        <Ellipse Canvas.Left="8" Canvas.Top="20" Width="22" Height="22" 
+                                                                 Fill="White" Opacity="0.2"/>
+                                                    </Canvas>
+                                                    
+                                                    <!-- Category Badge -->
+                                                    <Border Background="White" Opacity="0.95" 
+                                                            CornerRadius="8" Padding="5,2"
+                                                            HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                            Margin="8,8,0,0">
+                                                        <TextBlock Text="{Binding Category}" 
+                                                                   FontSize="8" FontWeight="Bold"
+                                                                   Foreground="{Binding GradientStartColor}"/>
+                                                    </Border>
+                                                    
+                                                    <!-- Module Icon Container -->
+                                                    <Border Background="White" Opacity="0.2" 
+                                                            CornerRadius="30" Width="55" Height="55"
+                                                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <Viewbox Width="35" Height="35" 
+                                                                 HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <materialDesign:PackIcon Kind="{Binding IconKind, Converter={StaticResource IconKindConverter}}" 
+                                                                                     Foreground="White"/>
+                                                        </Viewbox>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+                                            
+                                            <!-- Content Section -->
+                                            <StackPanel Grid.Row="1" Margin="10,10" VerticalAlignment="Top">
+                                                <TextBlock Text="{Binding Name}" 
+                                                           FontSize="13" FontWeight="SemiBold" 
+                                                           Foreground="{DynamicResource TextPrimary}" 
+                                                           TextWrapping="Wrap" 
+                                                           Margin="0,0,0,5"
+                                                           LineHeight="16"/>
+                                                <TextBlock Text="{Binding Description}" 
+                                                           FontSize="10" 
+                                                           Foreground="{DynamicResource TextSecondary}" 
+                                                           TextWrapping="Wrap"
+                                                           LineHeight="14"
+                                                           MaxHeight="42"/>
+                                                
+                                                <!-- Action Indicator -->
+                                                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                                    <TextBlock Text="Open Module" 
+                                                               FontSize="10" FontWeight="SemiBold"
+                                                               Foreground="{Binding GradientStartColor}"
+                                                               VerticalAlignment="Center"/>
+                                                    <materialDesign:PackIcon Kind="ChevronRight" 
+                                                                             Width="12" Height="12"
+                                                                             Foreground="{Binding GradientStartColor}"
+                                                                             VerticalAlignment="Center"
+                                                                             Margin="2,0,0,0"/>
+                                                </StackPanel>
                                             </StackPanel>
                                         </Grid>
+                                        
+                                        <!-- Hover Effect -->
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Cursor" Value="Hand"/>
+                                                        <Trigger.EnterActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" 
+                                                                                     To="0.95" Duration="0:0:0.2"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </Trigger.EnterActions>
+                                                        <Trigger.ExitActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" 
+                                                                                     To="1.0" Duration="0:0:0.2"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </Trigger.ExitActions>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
                                     </Button>
                                 </Border>
                             </DataTemplate>
@@ -172,8 +291,8 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <!-- More templates link -->
-                <TextBlock Text="More templates →" FontSize="14" FontWeight="SemiBold" 
+                <!-- More modules link -->
+                <TextBlock Text="View all modules →" FontSize="14" FontWeight="SemiBold" 
                            Foreground="{DynamicResource SelectedIndicator}" Margin="0,0,0,32" Cursor="Hand">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">

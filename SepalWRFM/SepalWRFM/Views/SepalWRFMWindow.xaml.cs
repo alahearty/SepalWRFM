@@ -5,13 +5,14 @@ using System.Windows.Threading;
 using Prism.Ioc;
 using Prism.Regions;
 using SepalWRFM.Core;
+using Syncfusion.Windows.Shared;
 
 namespace SepalWRFM.Views
 {
     /// <summary>
     /// Interaction logic for SepalWRFMWindow.xaml
     /// </summary>
-    public partial class SepalWRFMWindow : Window
+    public partial class SepalWRFMWindow : ChromelessWindow
     {
         private readonly IRegionManager _scopedRegionManager;
 
