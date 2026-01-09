@@ -58,10 +58,23 @@
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="0"/>
                             <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource HoverBackground}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                                </Trigger>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Background" Value="{DynamicResource AppCardBackground}"/>
                                     <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
                                 </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" Value="{DynamicResource AppCardBackground}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                                </MultiTrigger>
                             </Style.Triggers>
                         </Style>
                         
@@ -194,7 +207,12 @@
             <ContentControl syncfusion:DockingManager.Header="Properties"
                            syncfusion:DockingManager.State="Dock"
                            syncfusion:DockingManager.SideInDockedMode="Left"
-                           Width="250">
+                           syncfusion:DockingManager.CanClose="True"
+                           syncfusion:DockingManager.CanFloat="True"
+                           syncfusion:DockingManager.CanAutoHide="True"
+                           syncfusion:DockingManager.CanDock="True"
+                           Width="250"
+                           MinWidth="200">
                 <Border Background="{DynamicResource AppCardBackground}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -223,7 +241,12 @@
             <ContentControl syncfusion:DockingManager.Header="Tools"
                            syncfusion:DockingManager.State="Dock"
                            syncfusion:DockingManager.SideInDockedMode="Right"
-                           Width="250">
+                           syncfusion:DockingManager.CanClose="True"
+                           syncfusion:DockingManager.CanFloat="True"
+                           syncfusion:DockingManager.CanAutoHide="True"
+                           syncfusion:DockingManager.CanDock="True"
+                           Width="250"
+                           MinWidth="200">
                 <Border Background="{DynamicResource AppCardBackground}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -251,6 +274,7 @@
             <!-- Center Document Window (Workspace) -->
             <ContentControl syncfusion:DockingManager.Header="Workspace"
                            syncfusion:DockingManager.State="Document"
+                           syncfusion:DockingManager.CanClose="False"
                            x:Name="WorkspaceContent">
                 <Grid Background="{DynamicResource SidebarBackground}">
                     <ContentControl prism:RegionManager.RegionName="ProductionAnalysisWorkspaceRegion"/>
