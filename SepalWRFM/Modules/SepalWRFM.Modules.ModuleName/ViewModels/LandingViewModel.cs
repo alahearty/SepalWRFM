@@ -19,9 +19,9 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
             Message = messageService.GetMessage();
         }
 
-        public override void OnNavigatedTo(NavigationContext navigationContext)
+        public override void OnNavigatedTo(Prism.Regions.NavigationContext navigationContext)
         {
-            //do something
+            base.OnNavigatedTo(navigationContext);
         }
     }
 }

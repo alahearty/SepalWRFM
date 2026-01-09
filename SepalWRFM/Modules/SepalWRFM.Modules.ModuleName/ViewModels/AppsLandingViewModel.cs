@@ -27,6 +27,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
         private readonly IWindowService _windowService;
         private readonly IThemeService _themeService;
         private readonly ILogger _logger;
+        private readonly IMessageService _messageService;
         private ObservableCollection<AppItem> _apps;
         private ObservableCollection<AppItem> _crossPlatformApps;
         private ObservableCollection<AppItem> _workApps;
@@ -37,12 +38,14 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
             IRegionManager regionManager,
             IWindowService windowService,
             IThemeService themeService,
-            ILogger logger) 
+            ILogger logger,
+            IMessageService messageService) 
             : base(regionManager)
         {
             _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
             _themeService = themeService ?? throw new ArgumentNullException(nameof(themeService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
             
             InitializeApps();
             
@@ -145,13 +148,13 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 catch (Exception ex)
                 {
                     _logger.Error("Failed to open SEPAL WRFM window", ex);
-                    // TODO: Show user-friendly error message
+                    _messageService?.ShowError("Unable to open SEPAL WRFM window. Please try again or contact support if the issue persists.");
                 }
             }
             else
             {
-                _logger.Debug($"App '{app.Name}' clicked, but handler not implemented");
-                // TODO: Implement handlers for other apps
+                _logger.Info($"App '{app.Name}' clicked - handler not yet implemented");
+                _messageService?.ShowInfo($"{app.Name} is coming soon!");
             }
         }
 

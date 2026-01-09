@@ -5,6 +5,7 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
     <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
     <PackageReference Include="MaterialDesignColors" Version="5.3.0" />
@@ -22,8 +23,5 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\IconResources.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\**\*.png" />
   </ItemGroup>
 </Project>
