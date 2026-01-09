@@ -7,7 +7,7 @@
     <SolidColorBrush x:Key="TextPrimary" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="TextSecondary" Color="#B0B0B0"/>
     <SolidColorBrush x:Key="HoverBackground" Color="#2D2D2D"/>
-    <SolidColorBrush x:Key="SelectedBackground" Color="#3D3D3D"/>
+    <SolidColorBrush x:Key="SelectedBackground" Color="#0078D4"/>
     <SolidColorBrush x:Key="BorderColor" Color="#3D3D3D"/>
     <SolidColorBrush x:Key="PrimaryButton" Color="#6264A7"/>
     <SolidColorBrush x:Key="SidebarHover" Color="#2D2D2D"/>
