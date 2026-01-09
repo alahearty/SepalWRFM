@@ -4,7 +4,9 @@ using Prism.Regions;
 using SepalWRFM.Core;
 using SepalWRFM.Core.Mvvm;
 using SepalWRFM.Services.Interfaces;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -29,12 +31,17 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
         private bool _isSidebarVisible = true;
         private bool _isDarkTheme = true;
         private readonly IWindowService _windowService;
+        private static AppsLandingViewModel _instance;
 
         public AppsLandingViewModel(IRegionManager regionManager, IWindowService windowService) : base(regionManager)
         {
             _windowService = windowService;
+            _instance = this;
             InitializeApps();
+            OnThemeChanged();
         }
+
+        public static AppsLandingViewModel Instance => _instance;
 
         public bool IsSidebarVisible
         {
@@ -83,8 +90,43 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         private void OnThemeChanged()
         {
-            // Theme change will be handled by XAML bindings
-            // This method can be used for additional theme-related logic if needed
+            var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+            
+            ResourceDictionary themeDictToRemove = null;
+            foreach (var dict in mergedDictionaries)
+            {
+                if (dict.Source != null && 
+                    (dict.Source.ToString().Contains("DarkTheme.xaml") || 
+                     dict.Source.ToString().Contains("LightTheme.xaml")))
+                {
+                    themeDictToRemove = dict;
+                    break;
+                }
+            }
+            
+            if (themeDictToRemove != null)
+            {
+                mergedDictionaries.Remove(themeDictToRemove);
+            }
+            
+            if (IsDarkTheme)
+            {
+                mergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/SepalWRFM.Modules.Landing;component/Themes/DarkTheme.xaml") });
+            }
+            else
+            {
+                mergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/SepalWRFM.Modules.Landing;component/Themes/LightTheme.xaml") });
+            }
+            
+            Application.Current.Resources["IsDarkTheme"] = IsDarkTheme;
+            
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window != null && window.IsLoaded)
+                {
+                    window.InvalidateVisual();
+                }
+            }
         }
 
         public ObservableCollection<AppItem> Apps

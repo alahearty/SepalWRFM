@@ -113,13 +113,11 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
         private void CreateDocument(DocumentTemplate template)
         {
             System.Diagnostics.Debug.WriteLine($"Creating document from template: {template.Name}");
-            // TODO: Implement document creation logic
         }
 
         private void OpenDocument(RecentDocument document)
         {
             System.Diagnostics.Debug.WriteLine($"Opening document: {document.Name}");
-            // TODO: Implement document opening logic
         }
 
         private void NavigateTab(string tab)

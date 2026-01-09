@@ -158,7 +158,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                       <TextBlock Text="Sepal Suite" Foreground="{DynamicResource TextPrimary}" FontSize="18" FontWeight="SemiBold" 
+                       <TextBlock Text="Enterprise Suite" Foreground="{DynamicResource TextPrimary}" FontSize="18" FontWeight="SemiBold" 
                                    Margin="8,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button Grid.Column="2" 
@@ -490,7 +490,7 @@
 
                 <!-- Cross Platform Apps Section -->
                 <StackPanel Grid.Row="3" Margin="0,0,0,32">
-                    <TextBlock Text="Use across Teams, Outlook, and Enterprise Suite" 
+                    <TextBlock Text="Cross Platform Apps" 
                                FontSize="20" FontWeight="Bold" 
                                Foreground="{DynamicResource TextPrimary}" 
                                Margin="0,0,0,16"/>

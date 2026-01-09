@@ -15,7 +15,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="White">
+    <Grid Background="{DynamicResource MainBackground}">
         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.SepalWRFMRegion}" />
     </Grid>
 </Window>

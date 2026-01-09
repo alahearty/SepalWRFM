@@ -22,7 +22,6 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
         {
             get 
             { 
-                // Get theme from shared view model if available
                 if (_sharedViewModel != null)
                 {
                     return _sharedViewModel.IsDarkTheme;
@@ -35,7 +34,6 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     RaisePropertyChanged(nameof(IsLightTheme));
                     
-                    // Update shared view model
                     if (_sharedViewModel != null)
                     {
                         _sharedViewModel.IsDarkTheme = value;
@@ -51,7 +49,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
         }
 
         public bool IsLightTheme => !IsDarkTheme;
-        public bool IsSystemTheme => false; // Can implement system theme detection later
+        public bool IsSystemTheme => false;
 
         public ICommand CloseSettingsCommand => new DelegateCommand(CloseSettings);
         public ICommand NavigateToSectionCommand => new DelegateCommand<string>(NavigateToSection);
@@ -63,19 +61,16 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         private void CloseSettings()
         {
-            // Navigate back to Apps landing view
             RegionManager.RequestNavigate(RegionNames.ContentRegion, "AppsLandingView");
         }
 
         private void NavigateToSection(string section)
         {
-            // Handle section navigation if needed
             IsGeneralSelected = section == "General";
         }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            // Get current theme from shared view model
             if (_sharedViewModel != null)
             {
                 if (SetProperty(ref _isDarkTheme, _sharedViewModel.IsDarkTheme, nameof(IsDarkTheme)))

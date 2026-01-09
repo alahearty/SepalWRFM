@@ -23,6 +23,15 @@ namespace SepalWRFM.Views
             RegionManager.SetRegionManager(this, _scopedRegionManager);
             
             this.Loaded += SepalWRFMWindow_Loaded;
+            this.Closed += SepalWRFMWindow_Closed;
+        }
+
+        private void SepalWRFMWindow_Closed(object sender, EventArgs e)
+        {
+            if (Application.Current.Resources.Contains("ThemeChanged"))
+            {
+                Application.Current.Resources.Remove("ThemeChanged");
+            }
         }
 
         private void SepalWRFMWindow_Loaded(object sender, RoutedEventArgs e)

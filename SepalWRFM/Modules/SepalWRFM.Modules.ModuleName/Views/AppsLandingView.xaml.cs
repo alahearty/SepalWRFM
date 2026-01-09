@@ -59,13 +59,11 @@ namespace SepalWRFM.Modules.ModuleName.Views
 
         private void UpdateThemeResources(bool isDarkTheme)
         {
-            // Update both UserControl and Application resources
             var localResources = this.Resources;
             var appResources = Application.Current.Resources;
             
             System.Diagnostics.Debug.WriteLine($"Updating theme resources to: {(isDarkTheme ? "Dark" : "Light")}");
             
-            // Define all theme colors
             var keysToUpdate = new[] {
                 ("SidebarBackground", isDarkTheme ? "#1F1F1F" : "#FAF9F8"),
                 ("MainBackground", isDarkTheme ? "#121212" : "#FFFFFF"),
@@ -83,36 +81,21 @@ namespace SepalWRFM.Modules.ModuleName.Views
                 ("AppCardBorder", isDarkTheme ? "#3D3D3D" : "#EDEBE9")
             };
             
-            // Update local resources
             foreach (var (key, colorHex) in keysToUpdate)
             {
                 UpdateColorResource(localResources, key, colorHex);
-            }
-            
-            // Also update application resources for global access
-            foreach (var (key, colorHex) in keysToUpdate)
-            {
                 UpdateColorResource(appResources, key, colorHex);
             }
             
-            // Force complete UI refresh using Dispatcher to ensure it happens on UI thread
             this.Dispatcher.Invoke(() =>
             {
                 this.UpdateLayout();
                 this.InvalidateVisual();
                 this.InvalidateArrange();
                 this.InvalidateMeasure();
-                
-                // Force refresh of all child elements
-                var allElements = FindVisualChildren<FrameworkElement>(this);
-                foreach (var element in allElements)
-                {
-                    element.InvalidateVisual();
-                }
             }, System.Windows.Threading.DispatcherPriority.Render);
         }
         
-        // Helper method to find all visual children
         private System.Collections.Generic.IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
@@ -137,9 +120,7 @@ namespace SepalWRFM.Modules.ModuleName.Views
         {
             if (resources.Contains(key))
             {
-                // Replace the entire brush object to force UI refresh
                 var newBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorHex));
-                // Don't freeze - we need it to be modifiable for theme changes
                 resources[key] = newBrush;
                 System.Diagnostics.Debug.WriteLine($"Updated resource '{key}' to color {colorHex}");
             }
@@ -166,12 +147,10 @@ namespace SepalWRFM.Modules.ModuleName.Views
 
         private void AccountMenuPopup_Closed(object sender, EventArgs e)
         {
-            // Popup closed
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            // Close popup when Settings is clicked
             if (AccountMenuPopup != null)
             {
                 AccountMenuPopup.IsOpen = false;

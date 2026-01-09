@@ -7,14 +7,6 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <converters:BooleanToBrushConverter x:Key="GeneralIconColorConverter">
-            <converters:BooleanToBrushConverter.TrueBrush>
-                <SolidColorBrush Color="#0078D4"/>
-            </converters:BooleanToBrushConverter.TrueBrush>
-            <converters:BooleanToBrushConverter.FalseBrush>
-                <SolidColorBrush Color="#FFFFFF"/>
-            </converters:BooleanToBrushConverter.FalseBrush>
-        </converters:BooleanToBrushConverter>
         
         <!-- Theme Colors - Same as AppsLandingView -->
         <SolidColorBrush x:Key="SidebarBackground" Color="#1F1F1F"/>
@@ -85,9 +77,19 @@
                     </Button.Style>
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Cog" 
-                                                 Foreground="{Binding IsGeneralSelected, Converter={StaticResource GeneralIconColorConverter}}" 
                                                  Width="20" Height="20" 
-                                                 VerticalAlignment="Center"/>
+                                                 VerticalAlignment="Center">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsGeneralSelected}" Value="True">
+                                            <Setter Property="Foreground" Value="{DynamicResource SelectedIndicator}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
                         <TextBlock Text="General" 
                                    Foreground="{DynamicResource TextPrimary}" 
                                    FontSize="16" 

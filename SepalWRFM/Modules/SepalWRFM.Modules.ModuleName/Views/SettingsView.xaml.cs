@@ -57,7 +57,6 @@ namespace SepalWRFM.Modules.ModuleName.Views
                 }
                 else if (e.PropertyName == nameof(SettingsViewModel.IsLightTheme))
                 {
-                    // Also update when IsLightTheme changes (it's a computed property)
                     UpdateThemeResources(_viewModel.IsDarkTheme);
                 }
             }
