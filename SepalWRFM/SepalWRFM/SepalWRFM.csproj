@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Services\SepalWRFM.Services.Interfaces\SepalWRFM.Services.Interfaces.csproj" />
     <ProjectReference Include="..\Services\SepalWRFM.Services\SepalWRFM.Services.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconResources.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\**\*.png" />
+  </ItemGroup>
 </Project>
