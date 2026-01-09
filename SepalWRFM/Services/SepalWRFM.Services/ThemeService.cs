@@ -53,10 +53,8 @@ namespace SepalWRFM.Services
                 var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
 
                 // Remove existing theme dictionaries
-                var themeDictToRemove = mergedDictionaries
-                    .FirstOrDefault(dict => dict.Source != null &&
-                        (dict.Source.ToString().Contains("DarkTheme.xaml") ||
-                         dict.Source.ToString().Contains("LightTheme.xaml")));
+                var themeDictToRemove = mergedDictionaries.FirstOrDefault(dict => dict.Source != null &&
+                        (dict.Source.ToString().Contains("DarkTheme.xaml") || dict.Source.ToString().Contains("LightTheme.xaml")));
 
                 if (themeDictToRemove != null)
                 {
