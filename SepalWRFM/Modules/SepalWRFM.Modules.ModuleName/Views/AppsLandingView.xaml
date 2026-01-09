@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:converters="clr-namespace:SepalWRFM.Modules.ModuleName.Converters"
+             xmlns:converters="clr-namespace:SepalWRFM.Core.Converters;assembly=SepalWRFM.Core"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
         <converters:IconKindConverter x:Key="IconKindConverter"/>

@@ -1,22 +1,19 @@
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 
-namespace SepalWRFM.Modules.ModuleName.Converters
+namespace SepalWRFM.Core.Converters
 {
-    public class ThemeColorConverter : IValueConverter
+    public class BooleanToColumnWidthConverter : IValueConverter
     {
-        public Color DarkColor { get; set; }
-        public Color LightColor { get; set; }
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool isDarkTheme)
+            if (value is bool isVisible && isVisible)
             {
-                return isDarkTheme ? DarkColor : LightColor;
+                return new GridLength(240); // Sidebar width when visible
             }
-            return DarkColor; // Default to dark
+            return new GridLength(0); // Collapsed when hidden
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -18,9 +18,9 @@ namespace SepalWRFM.Modules.WRFM.Views
     /// <summary>
     /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class ViewA : UserControl
+    public partial class WRFMLandingView : UserControl
     {
-        public ViewA()
+        public WRFMLandingView()
         {
             InitializeComponent();
         }

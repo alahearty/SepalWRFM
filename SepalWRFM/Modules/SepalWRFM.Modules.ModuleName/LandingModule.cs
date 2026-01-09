@@ -82,7 +82,6 @@ namespace SepalWRFM.Modules.ModuleName
             containerRegistry.RegisterForNavigation<AppsLandingView>(AppConstants.ViewNames.AppsLanding);
             containerRegistry.RegisterForNavigation<SettingsView>(AppConstants.ViewNames.Settings);
             containerRegistry.RegisterForNavigation<ViewA>(AppConstants.ViewNames.ViewA);
-            containerRegistry.RegisterForNavigation<SepalAppView>(AppConstants.ViewNames.SepalApp);
             
             _logger.Info("Registered module views for navigation");
         }

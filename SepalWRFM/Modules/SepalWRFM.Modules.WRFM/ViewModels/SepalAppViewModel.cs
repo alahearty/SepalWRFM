@@ -9,7 +9,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace SepalWRFM.Modules.ModuleName.ViewModels
+namespace SepalWRFM.Modules.WRFM.ViewModels
 {
     public class WRFMModule
     {

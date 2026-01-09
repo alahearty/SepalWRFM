@@ -1,22 +1,22 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using MaterialDesignThemes.Wpf;
+using System.Windows.Media;
 
-namespace SepalWRFM.Modules.ModuleName.Converters
+namespace SepalWRFM.Core.Converters
 {
-    public class IconKindConverter : IValueConverter
+    public class ThemeColorConverter : IValueConverter
     {
+        public Color DarkColor { get; set; }
+        public Color LightColor { get; set; }
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string iconName)
+            if (value is bool isDarkTheme)
             {
-                if (Enum.TryParse<PackIconKind>(iconName, true, out var iconKind))
-                {
-                    return iconKind;
-                }
+                return isDarkTheme ? DarkColor : LightColor;
             }
-            return PackIconKind.Application;
+            return DarkColor; // Default to dark
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -62,8 +62,8 @@ namespace SepalWRFM.Services
                 }
 
                 // Add new theme dictionary
-                var themeUri = isDarkTheme ? new Uri("pack://application:,,,/SepalWRFM.Modules.Landing;component/Themes/DarkTheme.xaml")
-                    : new Uri("pack://application:,,,/SepalWRFM.Modules.Landing;component/Themes/LightTheme.xaml");
+                var themeUri = isDarkTheme ? new Uri("pack://application:,,,/SepalWRFM;component/Themes/DarkTheme.xaml")
+                    : new Uri("pack://application:,,,/SepalWRFM;component/Themes/LightTheme.xaml");
 
                 mergedDictionaries.Add(new ResourceDictionary { Source = themeUri });
                 Application.Current.Resources["IsDarkTheme"] = isDarkTheme;

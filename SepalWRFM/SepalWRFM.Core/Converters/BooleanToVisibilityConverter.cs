@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace SepalWRFM.Modules.ModuleName.Converters
+namespace SepalWRFM.Core.Converters
 {
     public class BooleanToVisibilityConverter : IValueConverter
     {

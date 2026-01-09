@@ -2,17 +2,17 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace SepalWRFM.Modules.ModuleName.Converters
+namespace SepalWRFM.Core.Converters
 {
-    public class BooleanToWidthConverter : IValueConverter
+    public class BooleanToHeightConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool isFeatured && isFeatured)
             {
-                return 400.0; // Featured cards are wider
+                return double.NaN; // Auto height for featured
             }
-            return 140.0; // Regular cards
+            return 140.0; // Fixed height for regular cards
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

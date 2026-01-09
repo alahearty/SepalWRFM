@@ -13,6 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modules\SepalWRFM.Modules.ModuleName\SepalWRFM.Modules.Landing.csproj" />
+    <ProjectReference Include="..\Modules\SepalWRFM.Modules.WRFM\SepalWRFM.Modules.WRFM.csproj" />
     <ProjectReference Include="..\SepalWRFM.Core\SepalWRFM.Core.csproj" />
     <ProjectReference Include="..\Services\SepalWRFM.Services.Interfaces\SepalWRFM.Services.Interfaces.csproj" />
     <ProjectReference Include="..\Services\SepalWRFM.Services\SepalWRFM.Services.csproj" />

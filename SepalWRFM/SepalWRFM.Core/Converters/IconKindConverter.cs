@@ -1,19 +1,22 @@
 using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
+using MaterialDesignThemes.Wpf;
 
-namespace SepalWRFM.Modules.ModuleName.Converters
+namespace SepalWRFM.Core.Converters
 {
-    public class BooleanToColumnWidthConverter : IValueConverter
+    public class IconKindConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool isVisible && isVisible)
+            if (value is string iconName)
             {
-                return new GridLength(240); // Sidebar width when visible
+                if (Enum.TryParse<PackIconKind>(iconName, true, out var iconKind))
+                {
+                    return iconKind;
+                }
             }
-            return new GridLength(0); // Collapsed when hidden
+            return PackIconKind.Application;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

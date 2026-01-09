@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace SepalWRFM.Modules.ModuleName.Views
+namespace SepalWRFM.Modules.WRFM.Views
 {
     /// <summary>
     /// Interaction logic for SepalAppView.xaml

@@ -6,4 +6,8 @@
   <ItemGroup>
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SepalWRFM.Core\SepalWRFM.Core.csproj" />
+    <ProjectReference Include="..\..\Services\SepalWRFM.Services.Interfaces\SepalWRFM.Services.Interfaces.csproj" />
+  </ItemGroup>
 </Project>
