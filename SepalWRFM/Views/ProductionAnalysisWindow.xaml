@@ -179,8 +179,8 @@
                     
                     <TabItem Header="View">
                         <Border Background="{DynamicResource AppCardBackground}" Padding="16,12">
-                            <StackPanel>
-                                <StackPanel Margin="0,0,0,12">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,0,24,0">
                                     <TextBlock Text="Layout" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,6"/>
                                     <Button ToolTip="Reset Layout" Style="{StaticResource RibbonButtonStyle}" HorizontalAlignment="Left">
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" MinWidth="60">
