@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Threading;
 using Prism.Regions;
 using SepalWRFM.Services.Interfaces;
+using Syncfusion.Windows.Tools.Controls;
 
 namespace SepalWRFM.Views
 {
@@ -81,12 +82,69 @@ namespace SepalWRFM.Views
                 _statusBarTimer?.Start();
                 UpdateStatusBarTime();
                 
+                // Initialize Copilot panel as hidden
+                if (CopilotPanel != null)
+                {
+                    DockingManager.SetState(CopilotPanel, DockState.Hidden);
+                }
+                
                 // Navigate to initial view if needed
                 // _scopedRegionManager.RequestNavigate("ProductionAnalysisWorkspaceRegion", "SomeView");
             }
             catch (Exception ex)
             {
                 _logger.Error("Error loading ProductionAnalysisWindow", ex);
+            }
+        }
+        
+        private void CopilotButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (CopilotPanel != null && dockingManager != null)
+                {
+                    var currentState = DockingManager.GetState(CopilotPanel);
+                    
+                    // Toggle Copilot panel visibility
+                    if (currentState == DockState.Hidden || currentState == DockState.AutoHidden)
+                    {
+                        // Show the Copilot panel (dock it to the right)
+                        CopilotPanel.Visibility = Visibility.Visible;
+                        DockingManager.SetState(CopilotPanel, DockState.Dock);
+                        DockingManager.SetSideInDockedMode(CopilotPanel, DockSide.Right);
+                        
+                        // Navigate to CopilotView if not already loaded
+                        try
+                        {
+                            if (_scopedRegionManager != null && 
+                                _scopedRegionManager.Regions.ContainsRegionWithName(SepalWRFM.Core.RegionNames.CopilotRegion))
+                            {
+                                var region = _scopedRegionManager.Regions[SepalWRFM.Core.RegionNames.CopilotRegion];
+                                if (region.Views.Count() == 0)
+                                {
+                                    _scopedRegionManager.RequestNavigate(SepalWRFM.Core.RegionNames.CopilotRegion, "CopilotView");
+                                }
+                            }
+                        }
+                        catch (Exception navEx)
+                        {
+                            _logger.Warning("Could not navigate to CopilotView, will retry on next show", navEx);
+                        }
+                        
+                        _logger.Info("Copilot panel shown");
+                    }
+                    else
+                    {
+                        // Hide the Copilot panel
+                        DockingManager.SetState(CopilotPanel, DockState.Hidden);
+                        CopilotPanel.Visibility = Visibility.Collapsed;
+                        _logger.Info("Copilot panel hidden");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error toggling Copilot panel", ex);
             }
         }
 

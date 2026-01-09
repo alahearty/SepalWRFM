@@ -5,9 +5,11 @@ using Prism.Modularity;
 using SepalWRFM.Modules.ModuleName;
 using SepalWRFM.Modules.WRFM;
 using SepalWRFM.Modules.ProductionSurveilance;
+using FullApp.Modules.Copilot;
 using SepalWRFM.Services;
 using SepalWRFM.Services.Interfaces;
 using SepalWRFM.Views;
+using Services = SepalWRFM.Services;
 using Syncfusion.Licensing;
 
 namespace SepalWRFM
@@ -76,8 +78,8 @@ namespace SepalWRFM
             containerRegistry.RegisterSingleton<Services.Interfaces.ILogger, Services.Logger>();
             
             // Core services
-            containerRegistry.RegisterSingleton<IMessageService, MessageService>();
-            containerRegistry.RegisterSingleton<IWindowService, WindowService>();
+            containerRegistry.RegisterSingleton<IMessageService, Services.MessageService>();
+            containerRegistry.RegisterSingleton<IWindowService, Services.WindowService>();
             
             // Theme service
             containerRegistry.RegisterSingleton<Services.Interfaces.IThemeService, Services.ThemeService>();
@@ -95,6 +97,7 @@ namespace SepalWRFM
             moduleCatalog.AddModule<ModuleNameModule>();
             moduleCatalog.AddModule<WRFMModule>();
             moduleCatalog.AddModule<ProductionSurveilanceModule>();
+            moduleCatalog.AddModule<CopilotModule>();
         }
     }
 }

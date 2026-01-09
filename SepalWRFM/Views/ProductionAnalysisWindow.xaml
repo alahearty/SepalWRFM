@@ -180,12 +180,21 @@
                     <TabItem Header="View">
                         <Border Background="{DynamicResource AppCardBackground}" Padding="16,12">
                             <StackPanel>
-                                <StackPanel>
+                                <StackPanel Margin="0,0,0,12">
                                     <TextBlock Text="Layout" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,6"/>
                                     <Button ToolTip="Reset Layout" Style="{StaticResource RibbonButtonStyle}" HorizontalAlignment="Left">
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" MinWidth="60">
                                             <materialDesign:PackIcon Kind="Refresh" Width="20" Height="20" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,4"/>
                                             <TextBlock Text="Reset" FontSize="10" Foreground="{DynamicResource TextPrimary}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Tools" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,6"/>
+                                    <Button x:Name="CopilotButton" ToolTip="Toggle Copilot" Style="{StaticResource RibbonButtonStyle}" HorizontalAlignment="Left" Click="CopilotButton_Click">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" MinWidth="70">
+                                            <materialDesign:PackIcon Kind="Robot" Width="20" Height="20" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,4"/>
+                                            <TextBlock Text="Copilot" FontSize="10" Foreground="{DynamicResource TextPrimary}" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </StackPanel>
@@ -246,7 +255,8 @@
                            syncfusion:DockingManager.CanAutoHide="True"
                            syncfusion:DockingManager.CanDock="True"
                            Width="250"
-                           MinWidth="200">
+                           MinWidth="200"
+                           x:Name="ToolsPanel">
                 <Border Background="{DynamicResource AppCardBackground}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -269,6 +279,20 @@
                         </ScrollViewer>
                     </Grid>
                 </Border>
+            </ContentControl>
+
+            <!-- Right Dock Window (Copilot) -->
+            <ContentControl syncfusion:DockingManager.Header="Copilot"
+                           syncfusion:DockingManager.State="Hidden"
+                           syncfusion:DockingManager.SideInDockedMode="Right"
+                           syncfusion:DockingManager.CanClose="True"
+                           syncfusion:DockingManager.CanFloat="True"
+                           syncfusion:DockingManager.CanAutoHide="False"
+                           syncfusion:DockingManager.CanDock="True"
+                           Width="380"
+                           MinWidth="300"
+                           x:Name="CopilotPanel">
+                <ContentControl prism:RegionManager.RegionName="CopilotRegion"/>
             </ContentControl>
 
             <!-- Center Document Window (Workspace) -->
