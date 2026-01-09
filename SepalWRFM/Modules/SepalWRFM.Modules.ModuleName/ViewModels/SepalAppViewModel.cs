@@ -71,11 +71,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
         private string _selectedTab = AppConstants.Tabs.Recent;
         private string _greeting;
 
-        public SepalAppViewModel(
-            IRegionManager regionManager,
-            IWRFMModuleService wrfmModuleService,
-            ILogger logger) 
-            : base(regionManager)
+        public SepalAppViewModel(IRegionManager regionManager, IWRFMModuleService wrfmModuleService, ILogger logger) : base(regionManager)
         {
             _wrfmModuleService = wrfmModuleService ?? throw new ArgumentNullException(nameof(wrfmModuleService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -133,8 +129,6 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
             }
 
             _logger.Info($"Opening WRFM module: {module.Name}");
-            // TODO: Navigate to the specific module view
-            // RegionManager.RequestNavigate(RegionNames.SepalWRFMRegion, module.ViewName);
         }
 
         private void OpenDocument(RecentDocument document)
@@ -146,7 +140,6 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
             }
 
             _logger.Info($"Opening document: {document.Name}");
-            // TODO: Implement document opening logic
         }
 
         private void NavigateTab(string tab)
@@ -209,31 +202,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 },
                 new RecentDocument
                 {
-                    Name = "WORIAYIBAPRI HEARTY ALAPHER Resume",
-                    Location = "Downloads",
-                    DateModified = now.AddDays(-1).AddHours(-4).AddMinutes(26),
-                    IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#6264A7")),
-                    OpenCommand = OpenDocumentCommand
-                },
-                new RecentDocument
-                {
                     Name = "NIGCOMSAT Use Case Document",
-                    Location = "OneDrive",
-                    DateModified = new DateTime(2025, 12, 18),
-                    IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
-                    OpenCommand = OpenDocumentCommand
-                },
-                new RecentDocument
-                {
-                    Name = "GeoBunker Trace 2",
-                    Location = "OneDrive",
-                    DateModified = new DateTime(2025, 12, 18),
-                    IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
-                    OpenCommand = OpenDocumentCommand
-                },
-                new RecentDocument
-                {
-                    Name = "Mini CV WORIAYIBAPRI HEARTY ALAPHER",
                     Location = "OneDrive",
                     DateModified = new DateTime(2025, 12, 18),
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
@@ -246,15 +215,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                     DateModified = new DateTime(2025, 12, 15),
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     OpenCommand = OpenDocumentCommand
-                },
-                new RecentDocument
-                {
-                    Name = "GeoBunkerTrace - A SPATIAL INTELLIGENCE FRAMEWORK FOR MONITORING AND REPORTING ILLEGAL",
-                    Location = "OneDrive",
-                    DateModified = new DateTime(2025, 12, 11),
-                    IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
-                    OpenCommand = OpenDocumentCommand
-                },
+                }
                 new RecentDocument
                 {
                     Name = "WORIAYIBAPRI HEARTY ALAPHER",
