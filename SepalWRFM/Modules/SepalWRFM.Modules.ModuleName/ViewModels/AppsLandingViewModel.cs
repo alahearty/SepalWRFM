@@ -24,24 +24,31 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
     public class AppsLandingViewModel : RegionViewModelBase
     {
+        private readonly IWindowService _windowService;
+        private readonly IThemeService _themeService;
+        private readonly ILogger _logger;
         private ObservableCollection<AppItem> _apps;
         private ObservableCollection<AppItem> _crossPlatformApps;
         private ObservableCollection<AppItem> _workApps;
-        private string _selectedSection = "Apps";
+        private string _selectedSection = AppConstants.Sections.Apps;
         private bool _isSidebarVisible = true;
-        private bool _isDarkTheme = true;
-        private readonly IWindowService _windowService;
-        private static AppsLandingViewModel _instance;
 
-        public AppsLandingViewModel(IRegionManager regionManager, IWindowService windowService) : base(regionManager)
+        public AppsLandingViewModel(
+            IRegionManager regionManager,
+            IWindowService windowService,
+            IThemeService themeService,
+            ILogger logger) 
+            : base(regionManager)
         {
-            _windowService = windowService;
-            _instance = this;
+            _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
+            _themeService = themeService ?? throw new ArgumentNullException(nameof(themeService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            
             InitializeApps();
-            OnThemeChanged();
+            
+            // Subscribe to theme changes
+            _themeService.ApplyTheme(_themeService.IsDarkTheme);
         }
-
-        public static AppsLandingViewModel Instance => _instance;
 
         public bool IsSidebarVisible
         {
@@ -51,14 +58,8 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         public bool IsDarkTheme
         {
-            get { return _isDarkTheme; }
-            set 
-            { 
-                if (SetProperty(ref _isDarkTheme, value))
-                {
-                    OnThemeChanged();
-                }
-            }
+            get => _themeService.IsDarkTheme;
+            set => _themeService.IsDarkTheme = value;
         }
 
         public ICommand ToggleSidebarCommand => new DelegateCommand(ToggleSidebar);
@@ -72,85 +73,48 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         private void ToggleTheme()
         {
-            System.Diagnostics.Debug.WriteLine($"ToggleTheme called. Current theme: {(_isDarkTheme ? "Dark" : "Light")}");
-            IsDarkTheme = !IsDarkTheme;
-            System.Diagnostics.Debug.WriteLine($"Theme toggled to: {(IsDarkTheme ? "Dark" : "Light")}");
+            _logger.Debug($"ToggleTheme called. Current theme: {(IsDarkTheme ? "Dark" : "Light")}");
+            _themeService.ToggleTheme();
+            _logger.Info($"Theme toggled to: {(IsDarkTheme ? "Dark" : "Light")}");
         }
 
         private void OpenSettings()
         {
-            // Share this view model with Settings view
-            SettingsViewModel.SetSharedViewModel(this);
-            
-            // Navigate to settings view with current theme
-            var parameters = new Prism.Regions.NavigationParameters();
-            parameters.Add("IsDarkTheme", IsDarkTheme);
-            RegionManager.RequestNavigate(RegionNames.ContentRegion, "SettingsView", parameters);
-        }
-
-        private void OnThemeChanged()
-        {
-            var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
-            
-            ResourceDictionary themeDictToRemove = null;
-            foreach (var dict in mergedDictionaries)
+            try
             {
-                if (dict.Source != null && 
-                    (dict.Source.ToString().Contains("DarkTheme.xaml") || 
-                     dict.Source.ToString().Contains("LightTheme.xaml")))
-                {
-                    themeDictToRemove = dict;
-                    break;
-                }
+                var parameters = new Prism.Regions.NavigationParameters();
+                parameters.Add("IsDarkTheme", IsDarkTheme);
+                RegionManager.RequestNavigate(RegionNames.ContentRegion, AppConstants.ViewNames.Settings, parameters);
+                _logger.Info("Navigated to Settings view");
             }
-            
-            if (themeDictToRemove != null)
+            catch (Exception ex)
             {
-                mergedDictionaries.Remove(themeDictToRemove);
-            }
-            
-            if (IsDarkTheme)
-            {
-                mergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/SepalWRFM.Modules.Landing;component/Themes/DarkTheme.xaml") });
-            }
-            else
-            {
-                mergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/SepalWRFM.Modules.Landing;component/Themes/LightTheme.xaml") });
-            }
-            
-            Application.Current.Resources["IsDarkTheme"] = IsDarkTheme;
-            
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window != null && window.IsLoaded)
-                {
-                    window.InvalidateVisual();
-                }
+                _logger.Error("Failed to navigate to Settings view", ex);
             }
         }
 
         public ObservableCollection<AppItem> Apps
         {
-            get { return _apps; }
-            set { SetProperty(ref _apps, value); }
+            get => _apps;
+            set => SetProperty(ref _apps, value);
         }
 
         public ObservableCollection<AppItem> CrossPlatformApps
         {
-            get { return _crossPlatformApps; }
-            set { SetProperty(ref _crossPlatformApps, value); }
+            get => _crossPlatformApps;
+            set => SetProperty(ref _crossPlatformApps, value);
         }
 
         public ObservableCollection<AppItem> WorkApps
         {
-            get { return _workApps; }
-            set { SetProperty(ref _workApps, value); }
+            get => _workApps;
+            set => SetProperty(ref _workApps, value);
         }
 
         public string SelectedSection
         {
-            get { return _selectedSection; }
-            set { SetProperty(ref _selectedSection, value); }
+            get => _selectedSection;
+            set => SetProperty(ref _selectedSection, value);
         }
 
         public ICommand NavigateCommand => new DelegateCommand<string>(Navigate);
@@ -163,34 +127,31 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         private void OnAppClick(AppItem app)
         {
-            // Handle app click - can navigate to app details or launch app
-            System.Diagnostics.Debug.WriteLine($"Clicked on {app?.Name ?? "null"}");
-            
             if (app == null)
             {
-                System.Diagnostics.Debug.WriteLine("AppItem is null!");
+                _logger.Warning("Attempted to click on null AppItem");
                 return;
             }
-            
-            // Open SepalWRFMWindow when SEPAL WRFM is clicked
-            if (app.Name == "SEPAL WRFM")
+
+            _logger.Debug($"Clicked on app: {app.Name}");
+
+            if (app.Name == AppConstants.AppNames.SepalWRFM)
             {
-                System.Diagnostics.Debug.WriteLine("Opening SEPAL WRFM Window...");
                 try
                 {
-                    if (_windowService == null)
-                    {
-                        System.Diagnostics.Debug.WriteLine("WindowService is null!");
-                        return;
-                    }
                     _windowService.OpenSepalWRFMWindow();
-                    System.Diagnostics.Debug.WriteLine("Window opened successfully");
+                    _logger.Info("SEPAL WRFM window opened successfully");
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Error opening window: {ex.Message}");
-                    System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+                    _logger.Error("Failed to open SEPAL WRFM window", ex);
+                    // TODO: Show user-friendly error message
                 }
+            }
+            else
+            {
+                _logger.Debug($"App '{app.Name}' clicked, but handler not implemented");
+                // TODO: Implement handlers for other apps
             }
         }
 
@@ -200,7 +161,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
             {
                 new AppItem
                 {
-                    Name = "SEPAL WRFM",
+                    Name = AppConstants.AppNames.SepalWRFM,
                     Description = "Production Analysis, Geology, Petrophysics",
                     Icon = "Email",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
@@ -355,7 +316,8 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            // Initialize when navigated to
+            _logger.Debug("AppsLandingViewModel navigated to");
+            // Additional initialization if needed
         }
     }
 }

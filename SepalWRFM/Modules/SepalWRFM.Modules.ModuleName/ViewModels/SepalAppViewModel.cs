@@ -2,6 +2,7 @@ using Prism.Commands;
 using Prism.Regions;
 using SepalWRFM.Core;
 using SepalWRFM.Core.Mvvm;
+using SepalWRFM.Services.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -63,13 +64,22 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
     public class SepalAppViewModel : RegionViewModelBase
     {
+        private readonly IWRFMModuleService _wrfmModuleService;
+        private readonly ILogger _logger;
         private ObservableCollection<WRFMModule> _wrfmModules;
         private ObservableCollection<RecentDocument> _recentDocuments;
-        private string _selectedTab = "Recent";
+        private string _selectedTab = AppConstants.Tabs.Recent;
         private string _greeting;
 
-        public SepalAppViewModel(IRegionManager regionManager) : base(regionManager)
+        public SepalAppViewModel(
+            IRegionManager regionManager,
+            IWRFMModuleService wrfmModuleService,
+            ILogger logger) 
+            : base(regionManager)
         {
+            _wrfmModuleService = wrfmModuleService ?? throw new ArgumentNullException(nameof(wrfmModuleService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            
             InitializeWRFMModules();
             InitializeRecentDocuments();
             UpdateGreeting();
@@ -77,20 +87,20 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         public ObservableCollection<WRFMModule> WRFMModules
         {
-            get { return _wrfmModules; }
-            set { SetProperty(ref _wrfmModules, value); }
+            get => _wrfmModules;
+            set => SetProperty(ref _wrfmModules, value);
         }
 
         public ObservableCollection<RecentDocument> RecentDocuments
         {
-            get { return _recentDocuments; }
-            set { SetProperty(ref _recentDocuments, value); }
+            get => _recentDocuments;
+            set => SetProperty(ref _recentDocuments, value);
         }
 
         public string SelectedTab
         {
-            get { return _selectedTab; }
-            set { SetProperty(ref _selectedTab, value); }
+            get => _selectedTab;
+            set => SetProperty(ref _selectedTab, value);
         }
 
         public string Greeting
@@ -116,13 +126,27 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         private void OpenModule(WRFMModule module)
         {
-            System.Diagnostics.Debug.WriteLine($"Opening WRFM module: {module.Name}");
-            // Navigate to the specific module
+            if (module == null)
+            {
+                _logger.Warning("Attempted to open null WRFM module");
+                return;
+            }
+
+            _logger.Info($"Opening WRFM module: {module.Name}");
+            // TODO: Navigate to the specific module view
+            // RegionManager.RequestNavigate(RegionNames.SepalWRFMRegion, module.ViewName);
         }
 
         private void OpenDocument(RecentDocument document)
         {
-            System.Diagnostics.Debug.WriteLine($"Opening document: {document.Name}");
+            if (document == null)
+            {
+                _logger.Warning("Attempted to open null document");
+                return;
+            }
+
+            _logger.Info($"Opening document: {document.Name}");
+            // TODO: Implement document opening logic
         }
 
         private void NavigateTab(string tab)
@@ -132,119 +156,34 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
 
         private void InitializeWRFMModules()
         {
-            WRFMModules = new ObservableCollection<WRFMModule>
+            try
             {
-                new WRFMModule
+                var moduleData = _wrfmModuleService.GetWRFMModules();
+                WRFMModules = new ObservableCollection<WRFMModule>();
+
+                foreach (var data in moduleData)
                 {
-                    Name = "Production Analysis",
-                    Description = "Analyze production trends, decline curves, and performance metrics",
-                    Category = "Production",
-                    IconKind = "ChartLine",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E3C72")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2A5298")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E3C72")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Production Geology",
-                    Description = "Geological mapping, reservoir characterization, and stratigraphy",
-                    Category = "Geology",
-                    IconKind = "Map",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8B4513")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CD853F")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8B4513")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Petrophysics",
-                    Description = "Rock properties, log analysis, and reservoir evaluation",
-                    Category = "Analysis",
-                    IconKind = "ChartBar",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D32F2F")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F44336")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D32F2F")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Schematic",
-                    Description = "Well schematics, facility diagrams, and network visualization",
-                    Category = "Visualization",
-                    IconKind = "Network",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00796B")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#009688")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00796B")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Well Integrity",
-                    Description = "Monitor well integrity, casing condition, and safety compliance",
-                    Category = "Safety",
-                    IconKind = "ShieldCheck",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F57C00")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF9800")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F57C00")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Reservoir Management",
-                    Description = "Reservoir modeling, simulation, and optimization strategies",
-                    Category = "Reservoir",
-                    IconKind = "Database",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#512DA8")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#673AB7")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#512DA8")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Well Testing",
-                    Description = "Pressure transient analysis, flow testing, and diagnostics",
-                    Category = "Testing",
-                    IconKind = "Speedometer",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0288D1")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#03A9F4")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0288D1")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Facility Management",
-                    Description = "Surface facility operations, equipment tracking, and maintenance",
-                    Category = "Facilities",
-                    IconKind = "Factory",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#388E3C")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4CAF50")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#388E3C")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Economic Analysis",
-                    Description = "Production economics, forecasting, and financial planning",
-                    Category = "Economics",
-                    IconKind = "CurrencyUsd",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C2185B")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E91E63")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C2185B")),
-                    OpenCommand = OpenModuleCommand
-                },
-                new WRFMModule
-                {
-                    Name = "Data Analytics",
-                    Description = "Advanced analytics, machine learning, and predictive modeling",
-                    Category = "Analytics",
-                    IconKind = "Brain",
-                    GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5D4037")),
-                    GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#795548")),
-                    IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5D4037")),
-                    OpenCommand = OpenModuleCommand
+                    var module = new WRFMModule
+                    {
+                        Name = data.Name,
+                        Description = data.Description,
+                        Category = data.Category,
+                        IconKind = data.IconKind,
+                        GradientStartColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(data.GradientStartColor)),
+                        GradientEndColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(data.GradientEndColor)),
+                        IconBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(data.IconBackgroundColor)),
+                        OpenCommand = OpenModuleCommand
+                    };
+                    WRFMModules.Add(module);
                 }
-            };
+                
+                _logger.Info($"Initialized {WRFMModules.Count} WRFM modules");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Failed to initialize WRFM modules", ex);
+                WRFMModules = new ObservableCollection<WRFMModule>();
+            }
         }
 
         private void InitializeRecentDocuments()

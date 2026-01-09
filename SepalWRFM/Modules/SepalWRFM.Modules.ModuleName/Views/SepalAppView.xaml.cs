@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using SepalWRFM.Modules.ModuleName.ViewModels;
 
 namespace SepalWRFM.Modules.ModuleName.Views
 {
@@ -10,45 +9,15 @@ namespace SepalWRFM.Modules.ModuleName.Views
     /// </summary>
     public partial class SepalAppView : UserControl
     {
-        private AppsLandingViewModel _sharedViewModel;
-
         public SepalAppView()
         {
             InitializeComponent();
-            this.DataContextChanged += SepalAppView_DataContextChanged;
             this.Loaded += SepalAppView_Loaded;
         }
 
         private void SepalAppView_Loaded(object sender, RoutedEventArgs e)
         {
-            _sharedViewModel = GetSharedLandingViewModel();
-            if (_sharedViewModel != null)
-            {
-                _sharedViewModel.PropertyChanged += SharedViewModel_PropertyChanged;
-            }
             UpdateThemeResources();
-        }
-
-        private void SepalAppView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (_sharedViewModel != null)
-            {
-                _sharedViewModel.PropertyChanged -= SharedViewModel_PropertyChanged;
-            }
-            _sharedViewModel = GetSharedLandingViewModel();
-            if (_sharedViewModel != null)
-            {
-                _sharedViewModel.PropertyChanged += SharedViewModel_PropertyChanged;
-            }
-            UpdateThemeResources();
-        }
-
-        private void SharedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(AppsLandingViewModel.IsDarkTheme))
-            {
-                UpdateThemeResources();
-            }
         }
 
         private void UpdateThemeResources()
@@ -81,31 +50,28 @@ namespace SepalWRFM.Modules.ModuleName.Views
 
         private bool GetCurrentTheme()
         {
-            if (Application.Current.Resources.Contains("IsDarkTheme"))
+            if (Application.Current?.Resources != null && Application.Current.Resources.Contains("IsDarkTheme"))
             {
                 return (bool)Application.Current.Resources["IsDarkTheme"];
             }
             
-            var landingViewModel = GetSharedLandingViewModel();
-            if (landingViewModel != null)
-            {
-                return landingViewModel.IsDarkTheme;
-            }
-            
+            // Default to dark theme if not set
             return true;
-        }
-
-        private AppsLandingViewModel GetSharedLandingViewModel()
-        {
-            return AppsLandingViewModel.Instance;
         }
 
         private void UpdateColorResource(ResourceDictionary resources, string key, string colorHex)
         {
-            if (resources.Contains(key))
+            if (resources != null && resources.Contains(key))
             {
-                var newBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorHex));
-                resources[key] = newBrush;
+                try
+                {
+                    var newBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorHex));
+                    resources[key] = newBrush;
+                }
+                catch
+                {
+                    // Ignore color conversion errors
+                }
             }
         }
     }

@@ -27,9 +27,21 @@ namespace SepalWRFM
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Core services
             containerRegistry.RegisterSingleton<IMessageService, MessageService>();
-            containerRegistry.RegisterSingleton<IWindowService, Services.WindowService>();
-            containerRegistry.Register<Views.SepalWRFMWindow>();
+            containerRegistry.RegisterSingleton<IWindowService, WindowService>();
+            
+            // Logging service
+            containerRegistry.RegisterSingleton<Services.Interfaces.ILogger, Services.Logger>();
+            
+            // Theme service
+            containerRegistry.RegisterSingleton<Services.Interfaces.IThemeService, Services.ThemeService>();
+            
+            // WRFM module service
+            containerRegistry.RegisterSingleton<Services.Interfaces.IWRFMModuleService, Services.WRFMModuleService>();
+            
+            // Views
+            containerRegistry.Register<SepalWRFMWindow>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

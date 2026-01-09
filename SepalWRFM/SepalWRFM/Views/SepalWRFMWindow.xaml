@@ -1,4 +1,4 @@
-<syncfusion:ChromelessWindow x:Class="SepalWRFM.Views.SepalWRFMWindow"
+<Window x:Class="SepalWRFM.Views.SepalWRFMWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
@@ -9,8 +9,10 @@
         WindowState="Maximized" 
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
-        UseNativeChrome="True">
-    <Grid Background="White">
+        TextOptions.TextFormattingMode="Display"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True">
+    <Grid Background="White" UseLayoutRounding="True" SnapsToDevicePixels="True">
         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.SepalWRFMRegion}" />
     </Grid>
-</syncfusion:ChromelessWindow>
+</Window>

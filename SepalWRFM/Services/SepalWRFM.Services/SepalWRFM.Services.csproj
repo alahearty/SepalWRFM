@@ -1,11 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SepalWRFM.Services.Interfaces\SepalWRFM.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\..\SepalWRFM.Core\SepalWRFM.Core.csproj" />
+    <ProjectReference Include="..\..\Modules\SepalWRFM.Modules.ModuleName\SepalWRFM.Modules.Landing.csproj" />
   </ItemGroup>
 
 </Project>

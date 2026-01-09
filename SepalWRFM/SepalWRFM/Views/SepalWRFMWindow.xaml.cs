@@ -1,24 +1,24 @@
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
-using Prism.Ioc;
 using Prism.Regions;
 using SepalWRFM.Core;
-using Syncfusion.Windows.Shared;
+using SepalWRFM.Services.Interfaces;
 
 namespace SepalWRFM.Views
 {
     /// <summary>
     /// Interaction logic for SepalWRFMWindow.xaml
     /// </summary>
-    public partial class SepalWRFMWindow : ChromelessWindow
+    public partial class SepalWRFMWindow : Window
     {
         private readonly IRegionManager _scopedRegionManager;
+        private readonly ILogger _logger;
 
-        public SepalWRFMWindow(IRegionManager regionManager, IContainerProvider containerProvider)
+        public SepalWRFMWindow(IRegionManager regionManager, ILogger logger)
         {
             InitializeComponent();
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _scopedRegionManager = new RegionManager();
             
             RegionManager.SetRegionManager(this, _scopedRegionManager);
@@ -29,65 +29,100 @@ namespace SepalWRFM.Views
 
         private void SepalWRFMWindow_Closed(object sender, EventArgs e)
         {
-            if (Application.Current.Resources.Contains("ThemeChanged"))
+            try
             {
-                Application.Current.Resources.Remove("ThemeChanged");
+                // Clean up resources if needed
+                if (Application.Current?.Resources != null && Application.Current.Resources.Contains("ThemeChanged"))
+                {
+                    Application.Current.Resources.Remove("ThemeChanged");
+                }
+                
+                _logger.Debug("SepalWRFMWindow closed");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error during window close", ex);
             }
         }
 
         private void SepalWRFMWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // Navigate to SepalAppView when window loads
             try
             {
+                _logger.Debug("SepalWRFMWindow loaded, attempting navigation to SepalAppView");
+                
                 // Wait for region to be created by Prism
-               Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Loaded,
-                    new System.Action(() =>
-                    {
-                        try
-                        {
-                            if (_scopedRegionManager != null)
-                            {
-                                if (_scopedRegionManager.Regions.ContainsRegionWithName(RegionNames.SepalWRFMRegion))
-                                {
-                                    _scopedRegionManager.RequestNavigate(RegionNames.SepalWRFMRegion, "SepalAppView");
-                                    Debug.WriteLine("Navigation to SepalAppView successful");
-                                }
-                                else
-                                {
-                                    Debug.WriteLine($"Region '{RegionNames.SepalWRFMRegion}' not found yet, will retry...");
-                                    // Retry after a short delay
-                                   Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() =>
-                                        {
-                                            if (_scopedRegionManager.Regions.ContainsRegionWithName(RegionNames.SepalWRFMRegion))
-                                            {
-                                                _scopedRegionManager.RequestNavigate(RegionNames.SepalWRFMRegion, "SepalAppView");
-                                            }
-                                        }), TimeSpan.FromMilliseconds(100));
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine($"SepalWRFMWindow navigation error: {ex.Message}");
-                            Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                        }
-                    }));
+                Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Loaded,
+                    new Action(() => NavigateToSepalAppView()));
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"SepalWRFMWindow initialization error: {ex.Message}");
+                _logger.Error("Error during window load", ex);
+            }
+        }
+
+        private void NavigateToSepalAppView()
+        {
+            try
+            {
+                if (_scopedRegionManager == null)
+                {
+                    _logger.Error("Scoped region manager is null");
+                    return;
+                }
+
+                if (_scopedRegionManager.Regions.ContainsRegionWithName(RegionNames.SepalWRFMRegion))
+                {
+                    _scopedRegionManager.RequestNavigate(RegionNames.SepalWRFMRegion, AppConstants.ViewNames.SepalApp);
+                    _logger.Info("Navigation to SepalAppView successful");
+                }
+                else
+                {
+                    _logger.Warning($"Region '{RegionNames.SepalWRFMRegion}' not found yet, retrying...");
+                    
+                    // Retry after a short delay
+                    Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Loaded,
+                        new Action(() =>
+                        {
+                            if (_scopedRegionManager.Regions.ContainsRegionWithName(RegionNames.SepalWRFMRegion))
+                            {
+                                _scopedRegionManager.RequestNavigate(RegionNames.SepalWRFMRegion, AppConstants.ViewNames.SepalApp);
+                                _logger.Info("Navigation to SepalAppView successful after retry");
+                            }
+                            else
+                            {
+                                _logger.Error($"Region '{RegionNames.SepalWRFMRegion}' still not found after retry");
+                            }
+                        }),
+                        TimeSpan.FromMilliseconds(100));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Navigation error in SepalWRFMWindow", ex);
             }
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            // Clean up the scoped region manager when window closes
-            if (_scopedRegionManager != null)
+            try
             {
-                RegionManager.SetRegionManager(this, null);
+                // Clean up the scoped region manager when window closes
+                if (_scopedRegionManager != null)
+                {
+                    RegionManager.SetRegionManager(this, null);
+                }
             }
-            base.OnClosed(e);
+            catch (Exception ex)
+            {
+                _logger?.Error("Error during window cleanup", ex);
+            }
+            finally
+            {
+                base.OnClosed(e);
+            }
         }
     }
 }
