@@ -7,6 +7,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
         <converters:IconKindConverter x:Key="IconKindConverter"/>
+        <converters:IconToImageSourceConverter x:Key="IconToImageSourceConverter"/>
         <converters:BooleanToWidthConverter x:Key="BooleanToWidthConverter"/>
         <converters:BooleanToHeightConverter x:Key="BooleanToHeightConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -377,11 +378,11 @@
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" Background="{Binding IconColor}" Width="48" Height="48" 
                                                 CornerRadius="8" VerticalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="{Binding Icon, Converter={StaticResource IconKindConverter}}" 
-                                                                     Foreground="{DynamicResource TextPrimary}" 
-                                                                     Width="24" Height="24" 
-                                                                     VerticalAlignment="Center" 
-                                                                     HorizontalAlignment="Center"/>
+                                            <Image Source="{Binding Icon, Converter={StaticResource IconToImageSourceConverter}}" 
+                                                   Width="28" Height="28" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center"
+                                                   Stretch="Uniform"/>
                                         </Border>
                                         <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
                                             <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="SemiBold" 
@@ -415,15 +416,17 @@
                                                 VerticalAlignment="Center" HorizontalAlignment="Center">
                                         <Border Background="{Binding IconColor}" Width="40" Height="40" 
                                                 CornerRadius="6" Margin="0,0,0,12" HorizontalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="{Binding Icon, Converter={StaticResource IconKindConverter}}" 
-                                                                     Foreground="{DynamicResource TextPrimary}" 
-                                                                     Width="20" Height="20" 
-                                                                     VerticalAlignment="Center" 
-                                                                     HorizontalAlignment="Center"/>
+                                            <Image Source="{Binding Icon, Converter={StaticResource IconToImageSourceConverter}}" 
+                                                   Width="24" Height="24" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center"
+                                                   Stretch="Uniform"/>
                                         </Border>
                                         <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold" 
                                                    Foreground="{DynamicResource TextPrimary}"
-                                                   TextAlignment="Center"/>
+                                                   TextAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   TextWrapping="Wrap"/>
                                     </StackPanel>
                                         </Grid>
                                     </Border>
@@ -486,17 +489,20 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Style="{StaticResource RegularAppCardStyle}">
-                                    <StackPanel>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Border Background="{Binding IconColor}" Width="40" Height="40" 
-                                                CornerRadius="6" Margin="0,0,0,12">
-                                            <materialDesign:PackIcon Kind="{Binding Icon, Converter={StaticResource IconKindConverter}}" 
-                                                                     Foreground="{DynamicResource TextPrimary}" 
-                                                                     Width="20" Height="20" 
-                                                                     VerticalAlignment="Center" 
-                                                                     HorizontalAlignment="Center"/>
+                                                CornerRadius="6" Margin="0,0,0,12" HorizontalAlignment="Center">
+                                            <Image Source="{Binding Icon, Converter={StaticResource IconToImageSourceConverter}}" 
+                                                   Width="24" Height="24" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center"
+                                                   Stretch="Uniform"/>
                                         </Border>
                                         <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold" 
-                                                   Foreground="{DynamicResource TextPrimary}"/>
+                                                   Foreground="{DynamicResource TextPrimary}"
+                                                   TextAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -539,17 +545,20 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Style="{StaticResource RegularAppCardStyle}">
-                                    <StackPanel>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Border Background="{Binding IconColor}" Width="40" Height="40" 
-                                                CornerRadius="6" Margin="0,0,0,12">
-                                            <materialDesign:PackIcon Kind="{Binding Icon, Converter={StaticResource IconKindConverter}}" 
-                                                                     Foreground="{DynamicResource TextPrimary}" 
-                                                                     Width="20" Height="20" 
-                                                                     VerticalAlignment="Center" 
-                                                                     HorizontalAlignment="Center"/>
+                                                CornerRadius="6" Margin="0,0,0,12" HorizontalAlignment="Center">
+                                            <Image Source="{Binding Icon, Converter={StaticResource IconToImageSourceConverter}}" 
+                                                   Width="24" Height="24" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center"
+                                                   Stretch="Uniform"/>
                                         </Border>
                                         <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold" 
-                                                   Foreground="{DynamicResource TextPrimary}"/>
+                                                   Foreground="{DynamicResource TextPrimary}"
+                                                   TextAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
