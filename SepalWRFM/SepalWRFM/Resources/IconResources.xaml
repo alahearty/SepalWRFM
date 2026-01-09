@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- Icon Image Paths Mapping -->
+    <!-- This dictionary maps icon names to image resource paths -->
+    <!-- Add your image files to the Images folder and reference them here -->
+    
+    <!-- Apps Icons - Mapped to actual file names in Core/Images/icons -->
+    <x:String x:Key="Icon_SepalWRFM">pack://application:,,,/SepalWRFM.Core;component/Images/icons/SEPAL WRFM.png</x:String>
+    <x:String x:Key="Icon_BFS">pack://application:,,,/SepalWRFM.Core;component/Images/icons/BFS.png</x:String>
+    <x:String x:Key="Icon_EPS">pack://application:,,,/SepalWRFM.Core;component/Images/icons/EPS.png</x:String>
+    <x:String x:Key="Icon_SMBS">pack://application:,,,/SepalWRFM.Core;component/Images/icons/SMBS.png</x:String>
+    <x:String x:Key="Icon_DIAP">pack://application:,,,/SepalWRFM.Core;component/Images/icons/DIAP.png</x:String>
+    <x:String x:Key="Icon_REINEUR">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Reineur.png</x:String>
+    <x:String x:Key="Icon_ESTURDI">pack://application:,,,/SepalWRFM.Core;component/Images/icons/eStudy.png</x:String>
+    <x:String x:Key="Icon_DOKU">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Group 1261153134.png</x:String>
+    <x:String x:Key="Icon_SharePoint">pack://application:,,,/SepalWRFM.Core;component/Images/icons/BFS.png</x:String>
+    
+    <!-- Additional icons found in folder -->
+    <x:String x:Key="Icon_EagleGaze">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Eagle Gaze.png</x:String>
+    <x:String x:Key="Icon_PVTRMS">pack://application:,,,/SepalWRFM.Core;component/Images/icons/PVT RMS.png</x:String>
+    
+    <!-- Legacy icon name mappings for backward compatibility -->
+    <x:String x:Key="Icon_Email">pack://application:,,,/SepalWRFM.Core;component/Images/icons/SEPAL WRFM.png</x:String>
+    <x:String x:Key="Icon_FileDocument">pack://application:,,,/SepalWRFM.Core;component/Images/icons/BFS.png</x:String>
+    <x:String x:Key="Icon_Table">pack://application:,,,/SepalWRFM.Core;component/Images/icons/EPS.png</x:String>
+    <x:String x:Key="Icon_FilePowerpoint">pack://application:,,,/SepalWRFM.Core;component/Images/icons/SMBS.png</x:String>
+    <x:String x:Key="Icon_Notebook">pack://application:,,,/SepalWRFM.Core;component/Images/icons/DIAP.png</x:String>
+    <x:String x:Key="Icon_Cloud">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Reineur.png</x:String>
+    <x:String x:Key="Icon_MicrosoftTeams">pack://application:,,,/SepalWRFM.Core;component/Images/icons/eStudy.png</x:String>
+    <x:String x:Key="Icon_Video">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Group 1261153134.png</x:String>
+    <x:String x:Key="Icon_ShareVariant">pack://application:,,,/SepalWRFM.Core;component/Images/icons/BFS.png</x:String>
+    
+    <!-- Cross Platform Apps Icons - Using placeholder/default for now -->
+    <x:String x:Key="Icon_Bookings">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_Copilot">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_OrgExplorer">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_Sales">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    
+    <!-- Legacy icon name mappings for backward compatibility -->
+    <x:String x:Key="Icon_CalendarClock">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_Robot">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_AccountNetwork">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_Tag">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    
+    <!-- Work Apps Icons - Using placeholder/default for now -->
+    <x:String x:Key="Icon_Project">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_Visio">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_Forms">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    
+    <!-- Legacy icon name mappings for backward compatibility -->
+    <x:String x:Key="Icon_ViewGrid">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_ChartBox">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    <x:String x:Key="Icon_FormSelect">pack://application:,,,/SepalWRFM.Core;component/Images/icons/Default.png</x:String>
+    
+    <!-- Default/Placeholder Icon - Use one of the existing icons as fallback -->
+    <x:String x:Key="Icon_Default">pack://application:,,,/SepalWRFM.Core;component/Images/icons/BFS.png</x:String>
+    
+</ResourceDictionary>

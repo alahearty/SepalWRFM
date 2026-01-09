@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:SepalWRFM"
              xmlns:prism="http://prismlibrary.com/">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Icon Resources - Maps icon names to image paths -->
+                <ResourceDictionary Source="Resources/IconResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>
