@@ -10,10 +10,12 @@
     <PackageReference Include="MaterialDesignColors" Version="5.3.0" />
     <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="32.1.19" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="32.1.19" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="32.1.19" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modules\SepalWRFM.Modules.ModuleName\SepalWRFM.Modules.Landing.csproj" />
     <ProjectReference Include="..\Modules\SepalWRFM.Modules.WRFM\SepalWRFM.Modules.WRFM.csproj" />
+    <ProjectReference Include="..\..\SepalWRFM.Modules.ProductionSurveilance\SepalWRFM.Modules.ProductionSurveilance.csproj" />
     <ProjectReference Include="..\SepalWRFM.Core\SepalWRFM.Core.csproj" />
     <ProjectReference Include="..\Services\SepalWRFM.Services.Interfaces\SepalWRFM.Services.Interfaces.csproj" />
     <ProjectReference Include="..\Services\SepalWRFM.Services\SepalWRFM.Services.csproj" />

@@ -3,6 +3,7 @@ using Prism.Ioc;
 using Prism.Modularity;
 using SepalWRFM.Modules.ModuleName;
 using SepalWRFM.Modules.WRFM;
+using SepalWRFM.Modules.ProductionSurveilance;
 using SepalWRFM.Services;
 using SepalWRFM.Services.Interfaces;
 using SepalWRFM.Views;
@@ -43,12 +44,14 @@ namespace SepalWRFM
             
             // Views
             containerRegistry.Register<SepalWRFMWindow>();
+            containerRegistry.Register<ProductionAnalysisWindow>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<ModuleNameModule>();
             moduleCatalog.AddModule<WRFMModule>();
+            moduleCatalog.AddModule<ProductionSurveilanceModule>();
         }
     }
 }

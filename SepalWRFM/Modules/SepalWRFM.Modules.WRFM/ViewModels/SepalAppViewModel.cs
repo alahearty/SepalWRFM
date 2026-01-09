@@ -66,15 +66,17 @@ namespace SepalWRFM.Modules.WRFM.ViewModels
     {
         private readonly IWRFMModuleService _wrfmModuleService;
         private readonly ILogger _logger;
+        private readonly IWindowService _windowService;
         private ObservableCollection<WRFMModule> _wrfmModules;
         private ObservableCollection<RecentDocument> _recentDocuments;
         private string _selectedTab = AppConstants.Tabs.Recent;
         private string _greeting;
 
-        public SepalAppViewModel(IRegionManager regionManager, IWRFMModuleService wrfmModuleService, ILogger logger) : base(regionManager)
+        public SepalAppViewModel(IRegionManager regionManager, IWRFMModuleService wrfmModuleService, ILogger logger, IWindowService windowService) : base(regionManager)
         {
             _wrfmModuleService = wrfmModuleService ?? throw new ArgumentNullException(nameof(wrfmModuleService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
             
             InitializeWRFMModules();
             InitializeRecentDocuments();
@@ -129,6 +131,15 @@ namespace SepalWRFM.Modules.WRFM.ViewModels
             }
 
             _logger.Info($"Opening WRFM module: {module.Name}");
+            
+            try
+            {
+                _windowService.OpenModuleWindow(module.Name);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Failed to open module window: {module.Name}", ex);
+            }
         }
 
         private void OpenDocument(RecentDocument document)
