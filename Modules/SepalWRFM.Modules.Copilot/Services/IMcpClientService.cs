@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace SepalWRFM.Modules.Copilot.Services
 {
     /// <summary>
-    /// Service for communicating with the EPS MCP server
+    /// Service for communicating with the SEPAL WRFM MCP server
     /// </summary>
     public interface IMcpClientService
     {
@@ -25,7 +25,7 @@ namespace SepalWRFM.Modules.Copilot.Services
         Task<string> SendChatMessageAsync(string message, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Gets or sets the EPS API base URL
+        /// Gets or sets the SEPAL WRFM API base URL
         /// </summary>
         string? ApiBaseUrl { get; set; }
 

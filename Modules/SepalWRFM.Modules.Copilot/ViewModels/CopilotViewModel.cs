@@ -480,7 +480,7 @@ namespace SepalWRFM.Modules.Copilot.ViewModels
         {
             ShowMoreMenu = false;
             // In a real implementation, this would open Copilot in a separate window/app
-            System.Diagnostics.Debug.WriteLine("Open in EPS Copilot app");
+            System.Diagnostics.Debug.WriteLine("Open in SEPAL WRFM Copilot app");
         }
 
         private void SendFeedback()
