@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 using Prism.Regions;
@@ -120,7 +121,7 @@ namespace SepalWRFM.Views
                                 _scopedRegionManager.Regions.ContainsRegionWithName(SepalWRFM.Core.RegionNames.CopilotRegion))
                             {
                                 var region = _scopedRegionManager.Regions[SepalWRFM.Core.RegionNames.CopilotRegion];
-                                if (region.Views.Count() == 0)
+                                if (!region.Views.Any())
                                 {
                                     _scopedRegionManager.RequestNavigate(SepalWRFM.Core.RegionNames.CopilotRegion, "CopilotView");
                                 }
@@ -128,7 +129,7 @@ namespace SepalWRFM.Views
                         }
                         catch (Exception navEx)
                         {
-                            _logger.Warning("Could not navigate to CopilotView, will retry on next show", navEx);
+                            _logger.Warning($"Could not navigate to CopilotView, will retry on next show: {navEx.Message}");
                         }
                         
                         _logger.Info("Copilot panel shown");
