@@ -163,7 +163,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = AppConstants.AppNames.SepalWRFM,
                     Description = "Production Analysis, Geology, Petrophysics",
-                    Icon = "Email",
+                    Icon = "SepalWRFM",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     IsFeatured = true,
                     ClickCommand = AppClickCommand
@@ -172,7 +172,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "BFS",
                     Description = "Business Forecasting System.",
-                    Icon = "FileDocument",
+                    Icon = "BFS",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#185ABD")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -181,7 +181,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "EPS",
                     Description = "Enterprise Planning System",
-                    Icon = "Table",
+                    Icon = "EPS",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#107C41")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -190,7 +190,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "SMBS",
                     Description = "Analytic tool",
-                    Icon = "FilePowerpoint",
+                    Icon = "SMBS",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D24726")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -199,7 +199,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "DIAP",
                     Description = "Drilling and Intervention Services",
-                    Icon = "Notebook",
+                    Icon = "DIAP",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#7719AA")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -208,7 +208,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "REINEUR",
                     Description = "Store and share files.",
-                    Icon = "Cloud",
+                    Icon = "REINEUR",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -217,7 +217,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "ESTURDI",
                     Description = "Chat, meet, and collaborate.",
-                    Icon = "MicrosoftTeams",
+                    Icon = "ESTURDI",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#6264A7")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -226,7 +226,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "DOKU",
                     Description = "Create and edit videos.",
-                    Icon = "Video",
+                    Icon = "DOKU",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8B5CF6")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -235,7 +235,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "SharePoint",
                     Description = "Collaborate and share content.",
-                    Icon = "ShareVariant",
+                    Icon = "SharePoint",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -248,7 +248,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "Bookings",
                     Description = "Schedule and manage appointments.",
-                    Icon = "CalendarClock",
+                    Icon = "Bookings",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -257,7 +257,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "Copilot",
                     Description = "AI-powered assistance.",
-                    Icon = "Robot",
+                    Icon = "Copilot",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6B35")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -266,7 +266,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "Org Explorer",
                     Description = "Explore your organization.",
-                    Icon = "AccountNetwork",
+                    Icon = "OrgExplorer",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -275,7 +275,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "Sales",
                     Description = "Manage sales and customers.",
-                    Icon = "Tag",
+                    Icon = "Sales",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -288,7 +288,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "Project",
                     Description = "Plan and manage projects.",
-                    Icon = "ViewGrid",
+                    Icon = "Project",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -297,7 +297,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "Visio",
                     Description = "Create diagrams and flowcharts.",
-                    Icon = "ChartBox",
+                    Icon = "Visio",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3955A3")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
@@ -306,7 +306,7 @@ namespace SepalWRFM.Modules.ModuleName.ViewModels
                 {
                     Name = "Forms",
                     Description = "Create surveys and quizzes.",
-                    Icon = "FormSelect",
+                    Icon = "Forms",
                     IconColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0078D4")),
                     IsFeatured = false,
                     ClickCommand = AppClickCommand
