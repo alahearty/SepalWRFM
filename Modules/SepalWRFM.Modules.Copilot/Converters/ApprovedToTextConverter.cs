@@ -2,26 +2,22 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace FullApp.Modules.Copilot.Converters
+namespace SepalWRFM.Modules.Copilot.Converters
 {
-    public class InverseBooleanConverter : IValueConverter
+    public class ApprovedToTextConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is bool boolValue)
+            if (value is bool isApproved)
             {
-                return !boolValue;
+                return isApproved ? "Approved" : "Pending Approval";
             }
-            return true;
+            return "Unknown";
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is bool boolValue)
-            {
-                return !boolValue;
-            }
-            return false;
+            throw new NotImplementedException();
         }
     }
 }

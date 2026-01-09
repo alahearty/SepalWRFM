@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SepalWRFM.Modules.WRFM", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SepalWRFM.Modules.ProductionSurveilance", "Modules\SepalWRFM.Modules.ProductionSurveilance\SepalWRFM.Modules.ProductionSurveilance.csproj", "{E4D12C4B-1703-4BB1-8BC5-9EBEDCBBFEB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullApp.Modules.Copilot", "Modules\FullApp.Modules.Copilot\FullApp.Modules.Copilot.csproj", "{DA26F042-5B5C-C2AC-FF43-DA7EC1F57596}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SepalWRFM.Modules.Copilot", "Modules\SepalWRFM.Modules.Copilot\SepalWRFM.Modules.Copilot.csproj", "{DA26F042-5B5C-C2AC-FF43-DA7EC1F57596}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

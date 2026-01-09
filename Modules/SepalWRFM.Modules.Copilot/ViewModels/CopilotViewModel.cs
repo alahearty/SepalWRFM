@@ -6,11 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SepalWRFM.Core.Mvvm;
-using FullApp.Modules.Copilot.Services;
+using SepalWRFM.Modules.Copilot.Services;
 using Prism.Commands;
 using Prism.Regions;
 
-namespace FullApp.Modules.Copilot.ViewModels
+namespace SepalWRFM.Modules.Copilot.ViewModels
 {
     public class CopilotViewModel : RegionViewModelBase
     {

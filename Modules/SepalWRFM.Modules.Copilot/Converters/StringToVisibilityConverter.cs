@@ -3,15 +3,15 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace FullApp.Modules.Copilot.Converters
+namespace SepalWRFM.Modules.Copilot.Converters
 {
-    public class ModelSelectionConverter : IValueConverter
+    public class StringToVisibilityConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is string selectedModel && parameter is string modelToCheck)
+            if (string.IsNullOrEmpty(value as string))
             {
-                return selectedModel == modelToCheck ? Visibility.Visible : Visibility.Collapsed;
+                return Visibility.Visible;
             }
             return Visibility.Collapsed;
         }

@@ -1,8 +1,8 @@
 using System.Windows;
 using System.Windows.Input;
-using FullApp.Modules.Copilot.ViewModels;
+using SepalWRFM.Modules.Copilot.ViewModels;
 
-namespace FullApp.Modules.Copilot.Views
+namespace SepalWRFM.Modules.Copilot.Views
 {
     public partial class CopilotView
     {

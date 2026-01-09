@@ -2,9 +2,9 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using FullApp.Modules.Copilot.ViewModels;
+using SepalWRFM.Modules.Copilot.ViewModels;
 
-namespace FullApp.Modules.Copilot.Converters
+namespace SepalWRFM.Modules.Copilot.Converters
 {
     public class MessageStyleConverter : IValueConverter
     {

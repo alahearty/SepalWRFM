@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FullApp.Modules.Copilot.Services
+namespace SepalWRFM.Modules.Copilot.Services
 {
     /// <summary>
     /// Service for communicating with the EPS MCP server

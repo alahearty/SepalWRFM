@@ -5,7 +5,7 @@ using Prism.Modularity;
 using SepalWRFM.Modules.ModuleName;
 using SepalWRFM.Modules.WRFM;
 using SepalWRFM.Modules.ProductionSurveilance;
-using FullApp.Modules.Copilot;
+using SepalWRFM.Modules.Copilot;
 using SepalWRFM.Services;
 using SepalWRFM.Services.Interfaces;
 using SepalWRFM.Views;

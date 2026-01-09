@@ -3,13 +3,13 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Security;
 using SepalWRFM.Core;
-using FullApp.Modules.Copilot.Services;
-using FullApp.Modules.Copilot.Views;
+using SepalWRFM.Modules.Copilot.Services;
+using SepalWRFM.Modules.Copilot.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
-namespace FullApp.Modules.Copilot
+namespace SepalWRFM.Modules.Copilot
 {
     public class CopilotModule : IModule
     {

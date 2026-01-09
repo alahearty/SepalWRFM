@@ -1,18 +1,21 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Media;
 
-namespace FullApp.Modules.Copilot.Converters
+namespace SepalWRFM.Modules.Copilot.Converters
 {
-    public class ApprovedToTextConverter : IValueConverter
+    public class ApprovedToColorConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is bool isApproved)
             {
-                return isApproved ? "Approved" : "Pending Approval";
+                return isApproved 
+                    ? new SolidColorBrush(Colors.Green) 
+                    : new SolidColorBrush(Colors.Orange);
             }
-            return "Unknown";
+            return new SolidColorBrush(Colors.Gray);
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
