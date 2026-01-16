@@ -6,7 +6,7 @@
         xmlns:core="clr-namespace:SepalWRFM.Core;assembly=SepalWRFM.Core"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         syncfusion:SfSkinManager.VisualStyle="MaterialLight"
-        Title="" 
+        Title="sdds" 
         WindowState="Maximized" 
         ResizeMode="CanResize"
         UseNativeChrome="True">
