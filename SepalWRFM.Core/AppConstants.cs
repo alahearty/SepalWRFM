@@ -39,6 +39,7 @@ namespace SepalWRFM.Core
             public const string Favorites = "Favorites";
             public const string Shared = "Shared";
         }
+
         public static class ModuleCategories
         {
             public const string Production = "Production";
